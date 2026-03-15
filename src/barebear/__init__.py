@@ -9,7 +9,7 @@ from barebear.exceptions import (
     PolicyViolation,
     ToolExecutionError,
 )
-from barebear.models import MockModel, ModelAdapter, ModelResponse, OpenAIModel
+from barebear.models import MockModel, ModelAdapter, ModelResponse, OpenAIModel, OpenRouterModel
 from barebear.policy import Policy
 from barebear.report import Report
 from barebear.state import State
@@ -26,6 +26,7 @@ __all__ = [
     "ModelAdapter",
     "ModelResponse",
     "OpenAIModel",
+    "OpenRouterModel",
     "Policy",
     "Report",
     "State",
