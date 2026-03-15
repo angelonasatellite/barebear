@@ -97,6 +97,32 @@ def test_run_with_scripted_model():
     assert report.final_output == "All done."
 
 
+def test_uncertainty_extracted_from_response():
+    mock = MockModel(responses=[
+        ModelResponse(
+            content="I found some results but I'm not sure about the second one.",
+            prompt_tokens=10,
+            completion_tokens=15,
+        ),
+    ])
+    bear = Bear(model=mock, tools=[])
+    report = bear.run(Task(goal="Research"))
+    assert len(report.uncertainties) > 0
+
+
+def test_assumptions_extracted_from_response():
+    mock = MockModel(responses=[
+        ModelResponse(
+            content="I assume the data is in CSV format. Here are the results.",
+            prompt_tokens=10,
+            completion_tokens=15,
+        ),
+    ])
+    bear = Bear(model=mock, tools=[])
+    report = bear.run(Task(goal="Parse data"))
+    assert len(report.assumptions) > 0
+
+
 def test_bear_has_checkpoint_manager():
     bear = Bear(model=MockModel(mode="auto"), tools=[])
     assert bear.checkpoints is not None

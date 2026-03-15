@@ -18,7 +18,7 @@ pip install -e ".[dev]"
 PYTHONPATH=src pytest
 ```
 
-All 83 tests should pass. If you're adding a feature, add tests for it.
+All 86 tests should pass. If you're adding a feature, add tests for it.
 
 To run with coverage:
 

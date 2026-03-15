@@ -57,33 +57,36 @@ class Bear:
     def run(self, task: Task) -> Report:
         """Execute a task to completion and return a report."""
         self._init_run(task)
+        assert self._report is not None
+        assert self._budget is not None
+        report = self._report
         start = time.monotonic()
 
         try:
             self._run_loop()
         except BudgetExceeded as exc:
-            self._report.status = "budget_exceeded"
-            self._report.error = str(exc)
-            self._report.add_step("error", f"Budget exceeded: {exc}")
+            report.status = "budget_exceeded"
+            report.error = str(exc)
+            report.add_step("error", f"Budget exceeded: {exc}")
         except CheckpointRequired as exc:
-            self._report.status = "paused"
-            self._report.checkpoint_id = exc.checkpoint_id
-            self._report.add_step(
+            report.status = "paused"
+            report.checkpoint_id = exc.checkpoint_id
+            report.add_step(
                 "checkpoint",
                 f"Paused for approval: {exc.tool_name}",
             )
         except PolicyViolation as exc:
-            self._report.status = "failed"
-            self._report.error = str(exc)
-            self._report.add_step("error", f"Policy violation: {exc}")
+            report.status = "failed"
+            report.error = str(exc)
+            report.add_step("error", f"Policy violation: {exc}")
         except Exception as exc:
-            self._report.status = "failed"
-            self._report.error = str(exc)
-            self._report.add_step("error", f"Unexpected error: {exc}")
+            report.status = "failed"
+            report.error = str(exc)
+            report.add_step("error", f"Unexpected error: {exc}")
 
         elapsed = time.monotonic() - start
         self._finalize_report(elapsed)
-        return self._report
+        return report
 
     def plan(self, task: Task) -> dict:
         """Ask the model to create a plan without executing any tools."""
@@ -115,13 +118,16 @@ class Bear:
         if self._current_task is None or self._report is None or self._budget is None:
             raise RuntimeError("No active run. Call run() first.")
 
-        self._budget.record_step()
-        self._budget.check()
+        budget = self._budget
+        report = self._report
+
+        budget.record_step()
+        budget.check()
 
         tool_schemas = [t.to_openai_schema() for t in self._registry.list_tools()]
         response = self.model.complete(self._messages, tools=tool_schemas or None)
 
-        self._budget.record_tokens(
+        budget.record_tokens(
             response.prompt_tokens, response.completion_tokens
         )
 
@@ -130,7 +136,7 @@ class Bear:
                 "role": "assistant",
                 "content": response.content,
             })
-            self._report.add_step("response", response.content)
+            report.add_step("response", response.content)
             return {"type": "response", "content": response.content, "done": True}
 
         result = self._handle_tool_calls(response)
@@ -224,9 +230,14 @@ class Bear:
 
     def _run_loop(self) -> None:
         """Core agent loop — repeatedly call model and handle responses."""
+        assert self._budget is not None
+        assert self._report is not None
+        budget = self._budget
+        report = self._report
+
         while True:
-            self._budget.record_step()
-            self._budget.check()
+            budget.record_step()
+            budget.check()
 
             tool_schemas = [
                 t.to_openai_schema() for t in self._registry.list_tools()
@@ -235,7 +246,7 @@ class Bear:
                 self._messages, tools=tool_schemas or None
             )
 
-            self._budget.record_tokens(
+            budget.record_tokens(
                 response.prompt_tokens, response.completion_tokens
             )
 
@@ -245,8 +256,9 @@ class Bear:
                     "role": "assistant",
                     "content": response.content,
                 })
-                self._report.final_output = response.content
-                self._report.add_step("response", response.content)
+                self._extract_uncertainty(response.content)
+                report.final_output = response.content
+                report.add_step("response", response.content)
                 break
 
             # Handle tool calls
@@ -254,6 +266,11 @@ class Bear:
 
     def _handle_tool_calls(self, response: ModelResponse) -> dict:
         """Process tool calls from a model response."""
+        assert self._budget is not None
+        assert self._report is not None
+        budget = self._budget
+        report = self._report
+
         assistant_msg: Dict[str, Any] = {
             "role": "assistant",
             "content": response.content,
@@ -276,7 +293,7 @@ class Bear:
                     "content": json.dumps({"error": err}),
                     "tool_call_id": tc_id,
                 })
-                self._report.add_step(
+                report.add_step(
                     "tool_error", err, tool_name=tool_name, error=err
                 )
                 last_result = {"type": "error", "error": err, "done": False}
@@ -292,7 +309,7 @@ class Bear:
                     "content": json.dumps({"error": reason}),
                     "tool_call_id": tc_id,
                 })
-                self._report.add_step(
+                report.add_step(
                     "policy_block", reason, tool_name=tool_name, error=reason
                 )
                 last_result = {"type": "policy_block", "error": reason, "done": False}
@@ -300,6 +317,7 @@ class Bear:
 
             # Policy: needs approval?
             if self.policy.needs_approval(tool):
+                assert self._current_task is not None
                 cp = self._checkpoint_mgr.create(
                     bear_id=self.bear_id,
                     task=self._current_task,
@@ -307,12 +325,12 @@ class Bear:
                     pending_action=tc,
                     messages=list(self._messages[:-1]),  # before this assistant msg
                 )
-                self._budget.record_tool_call()
+                budget.record_tool_call()
                 raise CheckpointRequired(cp.checkpoint_id, tool_name)
 
             # Execute tool
-            self._budget.record_tool_call()
-            self._budget.check()
+            budget.record_tool_call()
+            budget.check()
 
             try:
                 result_str = self._execute_tool(tool_name, arguments)
@@ -323,7 +341,7 @@ class Bear:
                     "content": json.dumps({"error": err_msg}),
                     "tool_call_id": tc_id,
                 })
-                self._report.add_step(
+                report.add_step(
                     "tool_error",
                     f"Tool {tool_name} failed",
                     tool_name=tool_name,
@@ -338,7 +356,7 @@ class Bear:
                 "content": result_str,
                 "tool_call_id": tc_id,
             })
-            self._report.add_step(
+            report.add_step(
                 "tool_call",
                 f"Called {tool_name}",
                 tool_name=tool_name,
@@ -445,3 +463,46 @@ class Bear:
                 if msg.get("role") == "assistant" and msg.get("content"):
                     self._report.final_output = msg["content"]
                     break
+
+    _UNCERTAINTY_MARKERS = [
+        "i'm not sure",
+        "i am not sure",
+        "not certain",
+        "uncertain",
+        "i don't know",
+        "i do not know",
+        "might be",
+        "may not be accurate",
+        "could not verify",
+        "unable to confirm",
+        "couldn't find",
+        "could not find",
+        "no information",
+        "unclear",
+        "unverified",
+    ]
+    _ASSUMPTION_MARKERS = [
+        "i assume",
+        "i'm assuming",
+        "assuming that",
+        "assumption:",
+        "this assumes",
+    ]
+
+    def _extract_uncertainty(self, text: str) -> None:
+        """Scan model output for uncertainty and assumption signals."""
+        lower = text.lower()
+        for marker in self._UNCERTAINTY_MARKERS:
+            if marker in lower:
+                for sentence in text.replace("\n", " ").split("."):
+                    if marker in sentence.lower():
+                        self._uncertainty.add_missing(sentence.strip())
+                        break
+                break
+        for marker in self._ASSUMPTION_MARKERS:
+            if marker in lower:
+                for sentence in text.replace("\n", " ").split("."):
+                    if marker in sentence.lower():
+                        self._uncertainty.add_assumption(sentence.strip())
+                        break
+                break

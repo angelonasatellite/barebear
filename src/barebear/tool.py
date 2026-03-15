@@ -36,14 +36,26 @@ class Tool:
         """
         import inspect
 
+        _ANNOTATION_MAP = {
+            str: "string",
+            int: "integer",
+            float: "number",
+            bool: "boolean",
+            list: "array",
+            dict: "object",
+        }
+
         params: Dict[str, Any] = {}
         required: List[str] = []
         try:
             sig = inspect.signature(self.fn)
+            hints = getattr(self.fn, "__annotations__", {})
             for pname, param in sig.parameters.items():
                 if pname in ("self", "cls"):
                     continue
-                params[pname] = {"type": "string", "description": ""}
+                annotation = hints.get(pname)
+                json_type = _ANNOTATION_MAP.get(annotation, "string")
+                params[pname] = {"type": json_type, "description": ""}
                 if param.default is inspect.Parameter.empty:
                     required.append(pname)
         except (ValueError, TypeError):

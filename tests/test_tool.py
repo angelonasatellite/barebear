@@ -26,6 +26,19 @@ def test_to_openai_schema():
     assert "query" in func["parameters"]["required"]
 
 
+def test_schema_preserves_type_annotations():
+    def calc(count: int, ratio: float, active: bool, name: str) -> str:
+        return ""
+
+    t = Tool(name="calc", fn=calc, description="Calculate")
+    schema = t.to_openai_schema()
+    props = schema["function"]["parameters"]["properties"]
+    assert props["count"]["type"] == "integer"
+    assert props["ratio"]["type"] == "number"
+    assert props["active"]["type"] == "boolean"
+    assert props["name"]["type"] == "string"
+
+
 def test_to_schema():
     t = Tool(name="t", fn=lambda: None, description="d", risk="high", side_effects="external")
     s = t.to_schema()

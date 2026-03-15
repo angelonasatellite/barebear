@@ -135,7 +135,7 @@ class MockModel(ModelAdapter):
 
         for pname in properties:
             ptype = properties[pname].get("type", "string")
-            if pname in required or True:  # fill all params for robustness
+            if pname in required or pname in properties:
                 if ptype == "string":
                     if "query" in pname.lower() or "search" in pname.lower():
                         args[pname] = task_text[:100] if task_text else "example query"
