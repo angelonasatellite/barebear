@@ -36,3 +36,7 @@ htmlcov/
 overview-temp.md
 test_live.py
 probe_models.sh
+shoutplan.md
+demo_fast.py
+demo_script.py
+demo.cast

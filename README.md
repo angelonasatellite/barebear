@@ -11,6 +11,8 @@ Minimal agent framework. Explicit state, policy-first tools, honest uncertainty.
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://python.org)
 [![PyPI](https://img.shields.io/pypi/v/barebear.svg)](https://pypi.org/project/barebear/)
 
+<img src="demo.gif" alt="BareBear demo" width="700">
+
 </div>
 
 ---
