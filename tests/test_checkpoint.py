@@ -1,5 +1,3 @@
-import json
-
 from barebear import Checkpoint, CheckpointManager, Task
 
 

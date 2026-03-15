@@ -1,5 +1,3 @@
-import pytest
-
 from barebear import Bear, MockModel, Policy, Task, Tool
 from barebear.models.base import ModelResponse
 
