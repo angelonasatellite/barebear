@@ -34,3 +34,5 @@ htmlcov/
 *.log
 .env
 overview-temp.md
+test_live.py
+probe_models.sh

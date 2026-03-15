@@ -15,6 +15,7 @@ class OpenAIModel(ModelAdapter):
         model: str = "gpt-4o-mini",
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
+        timeout: Optional[float] = None,
     ):
         try:
             import openai
@@ -29,6 +30,8 @@ class OpenAIModel(ModelAdapter):
             kwargs["api_key"] = api_key
         if base_url is not None:
             kwargs["base_url"] = base_url
+        if timeout is not None:
+            kwargs["timeout"] = timeout
 
         self._client = openai.OpenAI(**kwargs)
         self._model = model

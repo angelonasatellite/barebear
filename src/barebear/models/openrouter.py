@@ -17,8 +17,9 @@ class OpenRouterModel(OpenAIModel):
 
     def __init__(
         self,
-        model: str = "google/gemma-3-1b-it:free",
+        model: str = "stepfun/step-3.5-flash:free",
         api_key: Optional[str] = None,
+        timeout: float = 30.0,
     ):
         key = api_key or os.environ.get("OPENROUTER_API_KEY")
         if not key:
@@ -30,4 +31,5 @@ class OpenRouterModel(OpenAIModel):
             model=model,
             api_key=key,
             base_url=self.OPENROUTER_BASE_URL,
+            timeout=timeout,
         )
