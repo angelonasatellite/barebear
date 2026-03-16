@@ -8,7 +8,7 @@ Minimal agent framework. Explicit state, policy-first tools, honest uncertainty.
 <a href="https://github.com/richey-malhotra/barebear/actions"><img src="https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
-<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg" alt="PyPI"></a>
+<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.1.1" alt="PyPI"></a>
 <br><br>
 <img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.1.1/demo.gif" alt="BareBear demo" width="700">
 </div>
@@ -53,7 +53,7 @@ result = bear.run(Task(goal="Greet the user Alice"))
 print(result.summary())
 ```
 
-```
+```text
 ==================================================
   BAREBEAR RUN REPORT
 ==================================================
@@ -182,7 +182,7 @@ export PYTHONPATH=src
 
 ## Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                   bear.run(task)                 │
 ├─────────────────────────────────────────────────┤
