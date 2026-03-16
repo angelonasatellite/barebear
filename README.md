@@ -1,24 +1,16 @@
 <div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/richey-malhotra/barebear/main/assets/logo-light.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/richey-malhotra/barebear/main/assets/logo.svg">
-  <img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/main/assets/logo.svg" width="120">
-</picture>
-
-# BareBear
-
-**Every step leaves a print.**
-
+<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.1.1/assets/logo.png" width="320">
+<br>
+<strong>Every step leaves a print.</strong>
+<br><br>
 Minimal agent framework. Explicit state, policy-first tools, honest uncertainty.
-
-[![Tests](https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main)](https://github.com/richey-malhotra/barebear/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://python.org)
-[![PyPI](https://img.shields.io/pypi/v/barebear.svg)](https://pypi.org/project/barebear/)
-
-<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/main/demo.gif" alt="BareBear demo" width="700">
-
+<br><br>
+<a href="https://github.com/richey-malhotra/barebear/actions"><img src="https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main" alt="Tests"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+<img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
+<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg" alt="PyPI"></a>
+<br><br>
+<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.1.1/demo.gif" alt="BareBear demo" width="700">
 </div>
 
 ---
@@ -79,7 +71,7 @@ print(result.summary())
 ==================================================
 ```
 
-No API key needed — `MockModel` auto-calls available tools and produces a final response. Swap in `OpenAIModel("gpt-4o-mini")` when you're ready for the real thing.
+No API key needed — `MockModel` auto-calls available tools and produces a final response. Swap in `OpenAIModel("gpt-4o-mini")` or `OpenRouterModel("meta-llama/llama-4-scout")` when you're ready for the real thing.
 
 ## The 7 Primitives
 

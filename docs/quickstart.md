@@ -132,6 +132,32 @@ You can also pass `api_key` and `base_url` directly:
 model = OpenAIModel("gpt-4o-mini", api_key="sk-...", base_url="https://...")
 ```
 
+## Using with OpenRouter
+
+[OpenRouter](https://openrouter.ai) gives you access to hundreds of models (including free ones) through a single API:
+
+```python
+from barebear import Bear, Task, Tool, Policy
+from barebear.models import OpenRouterModel
+
+bear = Bear(
+    model=OpenRouterModel("meta-llama/llama-4-scout"),  # uses OPENROUTER_API_KEY env var
+    tools=[
+        Tool("search", fn=my_search_fn, description="Search the web"),
+    ],
+    policy=Policy(max_steps=10, max_cost_usd=0.50),
+)
+
+result = bear.run(Task(goal="Research recent developments in Rust web frameworks"))
+print(result.summary())
+```
+
+Any model on OpenRouter that supports tool calling will work. Set your key:
+
+```bash
+export OPENROUTER_API_KEY="sk-or-..."
+```
+
 ## Next steps
 
 - Browse the [examples](../examples/) — all run locally with `MockModel`

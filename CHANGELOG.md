@@ -2,6 +2,19 @@
 
 All notable changes to BareBear will be documented in this file.
 
+## 0.1.1 (2026-03-16)
+
+### Added
+
+- OpenRouter quickstart guide in docs
+- OpenRouter model mentioned in README quickstart
+
+### Changed
+
+- New bear mascot logo
+- README images now use release-safe absolute URLs so the PyPI project page renders correctly
+- GitHub and PyPI package metadata are aligned on version `0.1.1`
+
 ## 0.1.0 (2026-03-15)
 
 First public release.
