@@ -31,7 +31,7 @@ No invisible planners. No magic routers. No auto-generated chains. If the system
 
 ---
 
-### What this means in practice
+## What this means in practice
 
 - Every tool declares its risk level and side effects.
 - Policy is checked before every tool execution.

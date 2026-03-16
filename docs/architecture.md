@@ -8,7 +8,7 @@ BareBear has a deliberately simple architecture. The goal is few moving parts, e
 
 The 7 primitives and the run loop. This is what exists today.
 
-```
+```text
 Bear ── Task ── State ── Tool ── Policy ── Checkpoint ── Report
 ```
 
@@ -21,6 +21,7 @@ Bear ── Task ── State ── Tool ── Policy ── Checkpoint ──
 - **Report**: full trace of a run — steps, costs, tokens, uncertainties.
 
 Supporting classes:
+
 - **Budget**: tracks resource consumption against policy limits.
 - **Uncertainty**: records missing information (assumptions, confidence, unknowns).
 - **ToolRegistry**: holds tools by name, enforces uniqueness.
@@ -68,7 +69,7 @@ Operational layer for production deployments:
 
 This is the core of BareBear. Here's what happens when you call `bear.run(task)`:
 
-```
+```text
 1. Init
    ├── Create Budget from Policy
    ├── Create empty Report
@@ -108,6 +109,7 @@ Policy is checked at two points:
 **Before each step**: Budget limits (steps, tokens, cost) are verified. If any limit is exceeded, the run halts with `budget_exceeded` status.
 
 **Before each tool call**: The tool is checked against:
+
 1. `blocked_tools` — is this tool explicitly forbidden? → skip with `policy_block`
 2. `allow_external_side_effects` — does this tool have external side effects when policy disallows them? → skip with `policy_block`
 3. `require_approval_for` / `requires_approval` — does this tool need human sign-off? → create checkpoint, pause run
@@ -128,7 +130,7 @@ This means you can always answer: "what did the agent change, and when?"
 
 Every run produces a Report with:
 
-```python
+```json
 {
     "task_id": "a1b2c3d4",
     "status": "completed",           # completed | failed | paused | budget_exceeded
@@ -145,6 +147,7 @@ Every run produces a Report with:
 ```
 
 Each step captures:
+
 - Step number, type (`tool_call`, `response`, `policy_block`, `checkpoint`, `error`)
 - Summary text
 - Tool name and arguments (if applicable)

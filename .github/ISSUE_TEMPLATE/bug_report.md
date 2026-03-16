@@ -22,9 +22,11 @@ from barebear import Bear, Task, Tool, MockModel
 What you expected to happen instead.
 
 **Environment**
+
 - OS:
 - Python version:
 - BareBear version:
 
 **Additional context**
+
 Anything else relevant — error messages, traces, etc.
