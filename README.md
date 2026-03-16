@@ -1,8 +1,14 @@
 <div align="center">
 
-# 🐻 BareBear
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-light.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/logo.svg">
+  <img alt="BareBear" src="assets/logo.svg" width="120">
+</picture>
 
-**Agents without the cosplay.**
+# BareBear
+
+**Every step leaves a print.**
 
 Minimal agent framework. Explicit state, policy-first tools, honest uncertainty.
 
@@ -146,7 +152,7 @@ Tool("apply_patch", fn=apply, description="Apply the change",
 
 ### Run receipts
 
-Every `bear.run()` returns a `Report` — a full trace you can print, serialize to JSON, or store for auditing.
+Every `bear.run()` returns a `Report` — a full trace you can print, serialise to JSON, or store for auditing.
 
 ```python
 result = bear.run(task)
@@ -221,7 +227,7 @@ See [docs/architecture.md](docs/architecture.md) for the full breakdown.
 
 ## Philosophy
 
-> Most frameworks optimize for demos. BareBear optimizes for reality.
+> Most frameworks optimise for demos. BareBear optimises for reality.
 
 Read the [manifesto](docs/manifesto.md).
 

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Bear paw print - light variant for dark backgrounds -->
+  <!-- Main pad -->
+  <ellipse cx="100" cy="128" rx="38" ry="32" fill="#e8e8e8" />
+  <!-- Toe beans -->
+  <circle cx="58" cy="82" r="16" fill="#e8e8e8" />
+  <circle cx="84" cy="66" r="16" fill="#e8e8e8" />
+  <circle cx="116" cy="66" r="16" fill="#e8e8e8" />
+  <circle cx="142" cy="82" r="16" fill="#e8e8e8" />
+</svg>

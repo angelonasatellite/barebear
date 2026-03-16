@@ -68,7 +68,7 @@ When filing a bug report, include:
 - Python version
 - BareBear version (`python -c "import barebear; print(barebear.__version__)"`)
 - Minimal reproduction code
-- Expected vs. actual behavior
+- Expected vs. actual behaviour
 - Full traceback if applicable
 
 For feature requests, describe the use case. "I want X because Y" is more useful than "please add X."

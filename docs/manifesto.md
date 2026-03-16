@@ -1,6 +1,6 @@
 # The BareBear Manifesto
 
-Most agent frameworks optimize for demos. BareBear optimizes for reality.
+Most agent frameworks optimise for demos. BareBear optimises for reality.
 
 ---
 
@@ -24,7 +24,7 @@ When something goes wrong (it will), you need to know exactly what happened: whi
 "I don't know" is more valuable than a confident hallucination. The framework should track what it's guessing, what information is missing, and what it can't verify. Epistemic honesty isn't a feature — it's a responsibility.
 
 **6. One bear first.**
-Don't start with a multi-agent system. Start with one agent that does one thing well, with clear policy and traceable behavior. Add complexity only when you've proven the simple version isn't enough. Most of the time, it is.
+Don't start with a multi-agent system. Start with one agent that does one thing well, with clear policy and traceable behaviour. Add complexity only when you've proven the simple version isn't enough. Most of the time, it is.
 
 **7. No orchestration theatre.**
 No invisible planners. No magic routers. No auto-generated chains. If the system does something, you should be able to point to the line of code that decided to do it. Explicitness isn't a burden — it's the whole point.
@@ -38,7 +38,7 @@ No invisible planners. No magic routers. No auto-generated chains. If the system
 - Runs have budgets. When the budget runs out, the run stops.
 - High-risk actions create checkpoints. Humans approve or reject.
 - Reports capture steps, costs, tokens, assumptions, and uncertainties.
-- State is a dictionary. You can snapshot it, diff it, serialize it.
+- State is a dictionary. You can snapshot it, diff it, serialise it.
 - The agent tells you what it doesn't know.
 
 ### What this doesn't mean
