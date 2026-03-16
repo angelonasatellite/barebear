@@ -1,9 +1,9 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-light.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/logo.svg">
-  <img alt="BareBear" src="assets/logo.svg" width="120">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/richey-malhotra/barebear/main/assets/logo-light.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/richey-malhotra/barebear/main/assets/logo.svg">
+  <img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/main/assets/logo.svg" width="120">
 </picture>
 
 # BareBear
@@ -17,7 +17,7 @@ Minimal agent framework. Explicit state, policy-first tools, honest uncertainty.
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://python.org)
 [![PyPI](https://img.shields.io/pypi/v/barebear.svg)](https://pypi.org/project/barebear/)
 
-<img src="demo.gif" alt="BareBear demo" width="700">
+<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/main/demo.gif" alt="BareBear demo" width="700">
 
 </div>
 
