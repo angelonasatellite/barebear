@@ -1,5 +1,5 @@
 <div align="center">
-<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.4.0/assets/logo.png" width="320">
+<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.4.1/assets/logo.png" width="320">
 <br>
 <strong>The free agentic AI course.</strong>
 <br><br>
@@ -8,25 +8,25 @@
 <a href="https://github.com/richey-malhotra/barebear/actions"><img src="https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
-<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.4.0" alt="PyPI"></a>
+<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.4.1" alt="PyPI"></a>
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear" alt="PyPI downloads (total)"></a>
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear/month" alt="PyPI downloads / month"></a>
 <a href="https://github.com/richey-malhotra/barebear/stargazers"><img src="https://img.shields.io/github/stars/richey-malhotra/barebear?style=flat&logo=github" alt="GitHub stars"></a>
 <br><br>
-<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.4.0/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
+<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.4.1/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
 <br><br>
-<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.4.0/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
+<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.4.1/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
 </div>
 
 ---
 
 ## Three doors
 
-**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.4.0/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
+**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.4.1/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
 
-**For teachers** — [**See the syllabus**](lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment. If you teach a course or club with this, [add your classroom story to issue #1](https://github.com/richey-malhotra/barebear/issues/1) — comment in the pinned thread so other teachers can find it.
+**For teachers** — [**See the syllabus**](https://github.com/richey-malhotra/barebear/blob/v0.4.1/lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment. If you teach a course or club with this, [add your classroom story to issue #1](https://github.com/richey-malhotra/barebear/issues/1) — comment in the pinned thread so other teachers can find it.
 
-**For engineers** — [**Read the framework**](src/barebear/). The whole thing is ~1,500 lines of Python. No magic, no DSLs, no metaprogramming. Open it.
+**For engineers** — [**Read the framework**](https://github.com/richey-malhotra/barebear/tree/v0.4.1/src/barebear/). The whole thing is ~1,500 lines of Python. No magic, no DSLs, no metaprogramming. Open it.
 
 ---
 
@@ -73,19 +73,19 @@ audience this release is built for is **the student and the teacher**.
 
 Lessons 1–12 ship as Jupyter notebooks. Lessons 7–12 also ship as plain
 Python scripts. **Lesson 13** is a capstone project pack (brief +
-marking rubric, no notebook). **[Browse the full syllabus →](lessons/README.md)**
+marking rubric, no notebook). **[Browse the full syllabus →](https://github.com/richey-malhotra/barebear/blob/v0.4.1/lessons/README.md)**
 
 For teachers, the full set of supporting documents:
 
-- [Teacher quickstart](docs/teaching/teacher-quickstart.md) — start here
+- [Teacher quickstart](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/teacher-quickstart.md) — start here
   if you haven't installed Python before. No terminal needed.
-- [Exam-spec mapping](docs/teaching/spec-mapping.md) — AQA, OCR, AP CSP,
+- [Exam-spec mapping](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/spec-mapping.md) — AQA, OCR, AP CSP,
   AP CS A, IB CS, GCSE.
-- [Student misconceptions](docs/teaching/student-misconceptions.md) —
+- [Student misconceptions](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/student-misconceptions.md) —
   plain-English answers to the questions students actually ask.
-- [School IT brief](docs/teaching/it-brief.md) — one-page to email your
+- [School IT brief](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/it-brief.md) — one-page to email your
   IT department for approval.
-- [Instructor guide](docs/teaching/instructor-guide.md) — pacing notes,
+- [Instructor guide](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/instructor-guide.md) — pacing notes,
   pitfalls, assessment, subset paths.
 
 **The full course ships inside the package.** Once you've run
@@ -159,7 +159,7 @@ status: completed  |  turns: 2  |  tokens: 187  |  cost: $0.0001
 ```
 
 Full quickstart with policy, custom system prompts, reflection, and
-multi-agent: **[docs/quickstart.md](docs/quickstart.md)**.
+multi-agent: **[docs/quickstart.md](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/quickstart.md)**.
 
 ---
 
@@ -349,7 +349,7 @@ export OPENROUTER_API_KEY="sk-or-..."
 └─────────────────────────────────────────────────┘
 ```
 
-See **[docs/architecture.md](docs/architecture.md)** for the full breakdown.
+See **[docs/architecture.md](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/architecture.md)** for the full breakdown.
 
 ---
 
@@ -357,7 +357,7 @@ See **[docs/architecture.md](docs/architecture.md)** for the full breakdown.
 
 > Most frameworks optimise for demos. BareBear optimises for understanding.
 
-Read the **[manifesto](docs/manifesto.md)**.
+Read the **[manifesto](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/manifesto.md)**.
 
 ---
 
@@ -372,17 +372,17 @@ to tell us:
   thread.
 
 Lesson contributions are welcomed — see
-[CONTRIBUTING.md](CONTRIBUTING.md).
+[CONTRIBUTING.md](https://github.com/richey-malhotra/barebear/blob/v0.4.1/CONTRIBUTING.md).
 
 ---
 
 ## Contributing
 
 PRs, bug reports, lesson contributions, and honest feedback all welcome.
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/richey-malhotra/barebear/blob/v0.4.1/CONTRIBUTING.md).
 
 ---
 
 ## Licence
 
-[MIT](LICENSE) — Richey Malhotra, 2026.
+[MIT](https://github.com/richey-malhotra/barebear/blob/v0.4.1/LICENSE) — Richey Malhotra, 2026.

@@ -2,6 +2,24 @@
 
 All notable changes to BareBear will be documented in this file.
 
+## 0.4.1 (2026-04-29)
+
+Documentation-only patch. Fixes broken in-repo links on the PyPI
+project page.
+
+### Fixed
+
+- README's links to teacher resources, syllabus, instructor guide,
+  manifesto, architecture, contributing guide, licence, and source
+  tree were relative paths. Relative paths render correctly on GitHub
+  but break on PyPI's project page (PyPI doesn't have access to the
+  repo's directory tree). All in-repo links converted to absolute
+  `https://github.com/richey-malhotra/barebear/blob/v0.4.1/...` URLs
+  pinned to the matching tag.
+- Image and Colab refs bumped from `v0.4.0` to `v0.4.1`.
+
+No code changes; 128 tests still pass.
+
 ## 0.4.0 (2026-04-29)
 
 A "classroom in a box" release. The wheel now ships the full course —
