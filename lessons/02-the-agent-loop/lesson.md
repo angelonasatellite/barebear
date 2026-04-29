@@ -5,7 +5,7 @@
 > - Trace the four moves of every loop turn: perceive, think, act, observe.
 > - Run your first BareBear agent end-to-end.
 
-> **Status:** notebook to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/02-the-agent-loop/lesson.ipynb)
 
 ## The big idea
 

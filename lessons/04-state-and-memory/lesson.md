@@ -6,7 +6,7 @@
 > - Persist information across multiple `bear.run()` calls.
 > - Snapshot and inspect state at any point.
 
-> **Status:** notebook to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/04-state-and-memory/lesson.ipynb)
 
 ## The big idea
 

@@ -6,7 +6,7 @@
 > - Make an agent flag what it doesn't know.
 > - Read uncertainty out of a `Report` and use it in downstream code.
 
-> **Status:** notebook and script to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/12-honest-uncertainty/lesson.ipynb)
 
 ## The big idea
 

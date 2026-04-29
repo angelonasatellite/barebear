@@ -5,7 +5,7 @@
 > - Write tests for an agent — both behavioural and policy-level.
 > - Build a small eval harness for comparing two prompt strategies.
 
-> **Status:** notebook and script to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/11-evaluation/lesson.ipynb)
 
 ## The big idea
 

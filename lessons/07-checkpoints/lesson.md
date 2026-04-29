@@ -5,7 +5,7 @@
 > - Reconstruct full state from a stored checkpoint.
 > - Decide when human-in-the-loop is the right pattern (and when it isn't).
 
-> **Status:** notebook and script to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/07-checkpoints/lesson.ipynb)
 
 ## The big idea
 

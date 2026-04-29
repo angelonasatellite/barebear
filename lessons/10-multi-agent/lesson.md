@@ -5,7 +5,7 @@
 > - Recognise the trade-off: clarity of separation vs cost of extra LLM calls.
 > - Implement a research-then-write pipeline with two agents.
 
-> **Status:** notebook and script to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/10-multi-agent/lesson.ipynb)
 
 ## The big idea
 

@@ -5,7 +5,7 @@
 > - Use `Reflect` to critique and revise an agent's output.
 > - Recognise when reflection helps — and when it just doubles your token bill.
 
-> **Status:** notebook and script to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/09-reflection/lesson.ipynb)
 
 ## The big idea
 

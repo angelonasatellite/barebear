@@ -5,7 +5,7 @@
 > - Block a dangerous tool, or require human approval before it runs.
 > - Distinguish framework-level safety from prompt-level safety.
 
-> **Status:** notebook to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/06-policy-and-guardrails/lesson.ipynb)
 
 ## The big idea
 

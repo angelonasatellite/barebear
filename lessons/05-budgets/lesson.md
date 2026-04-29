@@ -5,7 +5,7 @@
 > - Set step, tool-call, token, and cost limits via `Policy`.
 > - Read a `Report` to see what the budget actually consumed.
 
-> **Status:** notebook to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/05-budgets/lesson.ipynb)
 
 ## The big idea
 

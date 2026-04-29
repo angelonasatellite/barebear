@@ -5,7 +5,7 @@
 > - Predict which tool the model will pick for a given request.
 > - Write a tool description that a model can use successfully.
 
-> **Status:** notebook to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/03-tool-design/lesson.ipynb)
 
 ## The big idea
 

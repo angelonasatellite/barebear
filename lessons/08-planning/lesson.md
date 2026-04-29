@@ -5,7 +5,7 @@
 > - Use `bear.plan()` to inspect the model's intent before it acts.
 > - Decide which strategy fits which task.
 
-> **Status:** notebook and script to follow. The lesson narrative below is complete.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/08-planning/lesson.ipynb)
 
 ## The big idea
 
