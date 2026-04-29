@@ -1,23 +1,28 @@
 """barebear command-line entry point.
 
-Currently exposes one subcommand:
+Subcommands:
 
-    barebear preflight   — checks the local environment is ready to run
+    barebear preflight   — verify the local environment is ready to run
                             lessons (Python version, package install,
-                            API key presence, network reachability,
-                            chosen model responsiveness).
+                            API key presence, network reachability).
+    barebear lessons     — list the bundled course; copy lessons to a
+                            working directory.
+    barebear examples    — list the bundled worked examples; copy them.
+    barebear docs        — list the bundled teaching documents.
 
-Designed for teachers to run before a lesson and for students to run
-when something feels off.
+Designed for teachers to run before a lesson and for students to copy
+the course locally without cloning git.
 """
 
 from __future__ import annotations
 
 import argparse
 import os
+import shutil
 import sys
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List, Optional
 
 
@@ -177,6 +182,160 @@ def run_preflight(skip_network: bool = False) -> int:
     return 0
 
 
+# ---------------------------------------------------------------------------
+# Bundled-content access (lessons / examples / docs/teaching ship inside the
+# wheel via [tool.hatch.build.targets.wheel.force-include] in pyproject.toml).
+# ---------------------------------------------------------------------------
+
+def _bundle_root() -> Path:
+    """Root of the bundled teaching content inside the installed package."""
+    return Path(__file__).parent / "_bundled"
+
+
+def _list_dir(path: Path) -> List[Path]:
+    if not path.exists():
+        return []
+    return sorted(p for p in path.iterdir() if not p.name.startswith("."))
+
+
+def _read_first_line(path: Path, prefix: str = "# ") -> str:
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.startswith(prefix):
+                return line[len(prefix):].strip()
+    except OSError:
+        pass
+    return path.stem
+
+
+def _copy_tree(src: Path, dst: Path) -> int:
+    """Copy a directory tree, returning the number of files copied."""
+    count = 0
+    for source_path in src.rglob("*"):
+        if source_path.is_dir():
+            continue
+        rel = source_path.relative_to(src)
+        target = dst / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, target)
+        count += 1
+    return count
+
+
+def run_lessons(args: argparse.Namespace) -> int:
+    """`barebear lessons` — list and/or copy the bundled course."""
+    root = _bundle_root() / "lessons"
+    if not root.exists():
+        print(
+            "No bundled lessons found. This installation of barebear does "
+            "not include the course content. Try `pip install --upgrade "
+            "barebear`, or read the lessons online at "
+            "https://github.com/richey-malhotra/barebear/tree/main/lessons",
+            file=sys.stderr,
+        )
+        return 1
+
+    lesson_dirs = [p for p in _list_dir(root) if p.is_dir()]
+
+    if args.lesson is not None:
+        match = [p for p in lesson_dirs if p.name.startswith(f"{args.lesson:02d}-")]
+        if not match:
+            print(f"No lesson {args.lesson:02d} found.", file=sys.stderr)
+            return 1
+        lesson_dirs = match
+
+    if args.copy:
+        dst = Path(args.copy).expanduser().resolve()
+        dst.mkdir(parents=True, exist_ok=True)
+        total = 0
+        for lesson in lesson_dirs:
+            target = dst / lesson.name
+            target.mkdir(parents=True, exist_ok=True)
+            total += _copy_tree(lesson, target)
+        which = (
+            f"lesson {args.lesson:02d}" if args.lesson is not None else f"all {len(lesson_dirs)} lessons"
+        )
+        print(f"Copied {which} ({total} files) to {dst}")
+        return 0
+
+    print("The BareBear course — bundled with this install:\n")
+    for lesson in lesson_dirs:
+        title = _read_first_line(lesson / "lesson.md")
+        ipynb = "notebook" if (lesson / "lesson.ipynb").exists() else "—"
+        py = "script" if (lesson / "lesson.py").exists() else "—"
+        print(f"  {lesson.name}")
+        print(f"    {title}")
+        print(f"    formats: {ipynb}, {py}")
+        print()
+    print("To copy the lessons to a working directory:")
+    print("  barebear lessons --copy ./my-classroom/")
+    print("\nTo copy a single lesson:")
+    print("  barebear lessons 1 --copy ./my-classroom/")
+    return 0
+
+
+def run_examples(args: argparse.Namespace) -> int:
+    """`barebear examples` — list and/or copy bundled worked examples."""
+    root = _bundle_root() / "examples"
+    if not root.exists():
+        print(
+            "No bundled examples found. Read them online at "
+            "https://github.com/richey-malhotra/barebear/tree/main/examples",
+            file=sys.stderr,
+        )
+        return 1
+
+    example_dirs = [p for p in _list_dir(root) if p.is_dir()]
+
+    if args.copy:
+        dst = Path(args.copy).expanduser().resolve()
+        dst.mkdir(parents=True, exist_ok=True)
+        total = 0
+        for ex in example_dirs:
+            target = dst / ex.name
+            target.mkdir(parents=True, exist_ok=True)
+            total += _copy_tree(ex, target)
+        # Also copy the examples README if present
+        readme = root / "README.md"
+        if readme.exists():
+            shutil.copy2(readme, dst / "README.md")
+            total += 1
+        print(f"Copied {len(example_dirs)} example(s) ({total} files) to {dst}")
+        return 0
+
+    print("Worked examples bundled with this install:\n")
+    for ex in example_dirs:
+        run_py = ex / "run.py"
+        first = _read_first_line(run_py, prefix='"""') if run_py.exists() else ex.name
+        print(f"  {ex.name}: {first}")
+    print("\nTo copy them to a working directory:")
+    print("  barebear examples --copy ./my-examples/")
+    return 0
+
+
+def run_docs(args: argparse.Namespace) -> int:
+    """`barebear docs` — list bundled teaching documents."""
+    root = _bundle_root() / "teaching"
+    if not root.exists():
+        print(
+            "No bundled teaching docs found. Read them online at "
+            "https://github.com/richey-malhotra/barebear/tree/main/docs/teaching",
+            file=sys.stderr,
+        )
+        return 1
+
+    docs = sorted(root.glob("*.md"))
+    print("Teaching docs bundled with this install:\n")
+    for d in docs:
+        title = _read_first_line(d)
+        print(f"  {d.name}")
+        print(f"    {title}")
+        print(f"    path: {d}")
+        print()
+    print("Open any of these in your editor or print them directly.")
+    return 0
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         prog="barebear",
@@ -194,10 +353,48 @@ def main(argv: Optional[List[str]] = None) -> int:
         help="skip the live model-call check (offline preflight)",
     )
 
+    lessons = sub.add_parser(
+        "lessons",
+        help="list or copy the bundled 13-lesson course",
+    )
+    lessons.add_argument(
+        "lesson",
+        nargs="?",
+        type=int,
+        default=None,
+        help="show or copy a specific lesson number (1..13)",
+    )
+    lessons.add_argument(
+        "--copy",
+        metavar="DIR",
+        help="copy lessons to DIR (created if missing)",
+    )
+
+    examples = sub.add_parser(
+        "examples",
+        help="list or copy the bundled worked examples",
+    )
+    examples.add_argument(
+        "--copy",
+        metavar="DIR",
+        help="copy examples to DIR (created if missing)",
+    )
+
+    sub.add_parser(
+        "docs",
+        help="list bundled teaching documents and their installed paths",
+    )
+
     args = parser.parse_args(argv)
 
     if args.command == "preflight":
         return run_preflight(skip_network=args.skip_network)
+    if args.command == "lessons":
+        return run_lessons(args)
+    if args.command == "examples":
+        return run_examples(args)
+    if args.command == "docs":
+        return run_docs(args)
 
     parser.print_help()
     return 1

@@ -1,5 +1,5 @@
 <div align="center">
-<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.3.0/assets/logo.png" width="320">
+<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.4.0/assets/logo.png" width="320">
 <br>
 <strong>The free agentic AI course.</strong>
 <br><br>
@@ -8,21 +8,21 @@
 <a href="https://github.com/richey-malhotra/barebear/actions"><img src="https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
-<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.3.0" alt="PyPI"></a>
+<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.4.0" alt="PyPI"></a>
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear" alt="PyPI downloads (total)"></a>
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear/month" alt="PyPI downloads / month"></a>
 <a href="https://github.com/richey-malhotra/barebear/stargazers"><img src="https://img.shields.io/github/stars/richey-malhotra/barebear?style=flat&logo=github" alt="GitHub stars"></a>
 <br><br>
-<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
+<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.4.0/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
 <br><br>
-<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.3.0/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
+<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.4.0/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
 </div>
 
 ---
 
 ## Three doors
 
-**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
+**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.4.0/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
 
 **For teachers** — [**See the syllabus**](lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment. If you teach a course or club with this, [add your classroom story to issue #1](https://github.com/richey-malhotra/barebear/issues/1) — comment in the pinned thread so other teachers can find it.
 
@@ -88,8 +88,19 @@ For teachers, the full set of supporting documents:
 - [Instructor guide](docs/teaching/instructor-guide.md) — pacing notes,
   pitfalls, assessment, subset paths.
 
-Run `barebear preflight` from the terminal before a lesson to verify
-your machine is ready (Python, key, network, model).
+**The full course ships inside the package.** Once you've run
+`pip install barebear`, the entire 13-lesson curriculum, the four worked
+examples, and the five teaching docs are bundled inside the install —
+no need to clone git.
+
+```bash
+barebear lessons                          # list the syllabus
+barebear lessons --copy ./my-classroom/   # copy all 13 lessons to a folder
+barebear lessons 7 --copy ./tomorrow/     # copy a specific lesson
+barebear examples --copy ./examples/      # copy the worked examples
+barebear docs                             # list bundled teaching docs + paths
+barebear preflight                        # verify Python, key, network, model
+```
 
 ---
 

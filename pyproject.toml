@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "barebear"
-version = "0.3.0"
+version = "0.4.0"
 description = "The free agentic AI course. 12 lessons, 12 concepts, real models. Read the framework — it's the textbook."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -67,11 +67,19 @@ packages = ["src/barebear"]
 [tool.hatch.build.targets.sdist]
 include = [
     "/src",
+    "/lessons",
+    "/examples",
+    "/docs/teaching",
     "/pyproject.toml",
     "/README.md",
     "/LICENSE",
     "/CHANGELOG.md",
 ]
+
+[tool.hatch.build.targets.wheel.force-include]
+"lessons" = "barebear/_bundled/lessons"
+"examples" = "barebear/_bundled/examples"
+"docs/teaching" = "barebear/_bundled/teaching"
 
 [tool.ruff]
 target-version = "py39"

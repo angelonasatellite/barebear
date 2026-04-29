@@ -2,6 +2,47 @@
 
 All notable changes to BareBear will be documented in this file.
 
+## 0.4.0 (2026-04-29)
+
+A "classroom in a box" release. The wheel now ships the full course —
+13 lessons (notebooks + scripts), 4 worked examples, and the 5
+teaching documents — bundled inside the package itself. A teacher who
+runs `pip install barebear` no longer needs to clone git to access any
+of the curriculum.
+
+### Added
+
+- **Lesson, example, and teaching-doc bundling.** The wheel includes
+  `barebear/_bundled/lessons/`, `_bundled/examples/`, and
+  `_bundled/teaching/` via `[tool.hatch.build.targets.wheel.force-include]`.
+  Wheel grew from 31 KB to ~123 KB; sdist from 27 KB to ~79 KB.
+- **`barebear lessons`** — list the bundled syllabus with title and
+  available formats (notebook / script).
+- **`barebear lessons N`** — show details for one lesson.
+- **`barebear lessons --copy DIR`** — copy all lessons (or a specific
+  one with `barebear lessons N --copy DIR`) to a working directory.
+  Teachers can spin up a classroom workspace in one command without
+  cloning git.
+- **`barebear examples`** and **`barebear examples --copy DIR`** —
+  same pattern for the four worked examples.
+- **`barebear docs`** — list the bundled teaching docs and the absolute
+  paths inside the install where they live, so a teacher can open them
+  in their editor or pipe them to `cat`.
+- 10 new tests covering the bundled-content commands, using a fake
+  bundle directory so the tests don't depend on packaging. 128 tests
+  passing total.
+
+### Changed
+
+- pyproject `[tool.hatch.build.targets.sdist]` now includes `lessons/`,
+  `examples/`, and `docs/teaching/` alongside the source. Carousel and
+  marketing assets remain excluded.
+
+### Notes
+
+- Public Python API unchanged from 0.3.x. Adding new CLI subcommands is
+  additive; the `preflight` command still works as before.
+
 ## 0.3.0 (2026-04-29)
 
 A teacher-experience release. The framework is unchanged; everything
