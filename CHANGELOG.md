@@ -2,6 +2,23 @@
 
 All notable changes to BareBear will be documented in this file.
 
+## 0.2.1 (2026-04-29)
+
+Packaging hygiene only. No code changes.
+
+### Fixed
+
+- The 0.2.0 sdist accidentally bundled unrelated repo content
+  (large media files plus a leftover root `demo.gif`), inflating the
+  source distribution. The wheel was always clean.
+- Added explicit `[tool.hatch.build.targets.sdist]` include list so the
+  sdist now contains only `src/`, `pyproject.toml`, `README.md`, `LICENSE`,
+  and `CHANGELOG.md`.
+- Removed the leftover root `demo.gif`; the canonical asset lives at
+  `assets/demo.gif`.
+
+0.2.0 has been yanked. Use 0.2.1.
+
 ## 0.2.0 (2026-04-29)
 
 Pivot release. BareBear is now positioned as the free agentic AI course —
