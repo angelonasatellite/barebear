@@ -1,13 +1,16 @@
 """
 Ticket triage: classifies and routes a batch of support tickets.
 Demonstrates multi-step tool usage and budget tracking across many calls.
+
+Run with:
+    python examples/ticket_triage/run.py                      # uses OpenRouter (default)
+    python examples/ticket_triage/run.py --provider ollama    # uses local Ollama
 """
 
 import argparse
 import json
 
-from barebear import Bear, Task, Policy, Tool, Report
-from barebear.models import MockModel, OpenAIModel
+from barebear import Bear, Task, Policy, Tool
 
 # --- Sample ticket data ---
 
@@ -67,9 +70,22 @@ def assign_ticket(ticket_id: str, team: str) -> str:
 
 # --- Main ---
 
+def make_model(provider: str):
+    if provider == "ollama":
+        from barebear import OllamaModel
+        return OllamaModel()
+    from barebear import OpenRouterModel
+    return OpenRouterModel()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Ticket triage example")
-    parser.add_argument("--live", action="store_true", help="Use OpenAI instead of MockModel")
+    parser.add_argument(
+        "--provider",
+        choices=["openrouter", "ollama"],
+        default="openrouter",
+        help="Model backend (default: openrouter)",
+    )
     parser.add_argument("--verbose", action="store_true", help="Print full JSON trace")
     args = parser.parse_args()
 
@@ -89,10 +105,7 @@ def main():
         max_cost_usd=0.25,
     )
 
-    if args.live:
-        model = OpenAIModel()
-    else:
-        model = MockModel(mode="auto")
+    model = make_model(args.provider)
 
     bear = Bear(model=model, tools=tools, policy=policy)
     task = Task(
@@ -120,7 +133,7 @@ def main():
             elif entry["action"] == "assign":
                 print(f"  [{entry['ticket_id']}] assigned  → {entry['team']}")
     else:
-        print("\nNo triage actions recorded (MockModel may not have invoked the tools).")
+        print("\nNo triage actions recorded.")
 
     if args.verbose:
         print("\n--- JSON Trace ---")

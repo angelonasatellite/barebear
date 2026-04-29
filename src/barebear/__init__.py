@@ -9,8 +9,15 @@ from barebear.exceptions import (
     PolicyViolation,
     ToolExecutionError,
 )
-from barebear.models import MockModel, ModelAdapter, ModelResponse, OpenAIModel, OpenRouterModel
+from barebear.models import (
+    ModelAdapter,
+    ModelResponse,
+    OllamaModel,
+    OpenAIModel,
+    OpenRouterModel,
+)
 from barebear.policy import Policy
+from barebear.reflect import Reflect, Reflection
 from barebear.report import Report
 from barebear.state import State
 from barebear.task import Task
@@ -22,12 +29,14 @@ __all__ = [
     "Budget",
     "Checkpoint",
     "CheckpointManager",
-    "MockModel",
     "ModelAdapter",
     "ModelResponse",
+    "OllamaModel",
     "OpenAIModel",
     "OpenRouterModel",
     "Policy",
+    "Reflect",
+    "Reflection",
     "Report",
     "State",
     "Task",
@@ -40,4 +49,4 @@ __all__ = [
     "ToolExecutionError",
 ]
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"

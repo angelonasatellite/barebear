@@ -1,13 +1,16 @@
 """
 Research assistant: searches the web and summarizes findings.
 Demonstrates basic tool usage and report generation.
+
+Run with:
+    python examples/research_assistant/run.py                      # uses OpenRouter (default)
+    python examples/research_assistant/run.py --provider ollama    # uses local Ollama
 """
 
 import argparse
 import json
 
-from barebear import Bear, Task, Policy, Tool, Report
-from barebear.models import MockModel, OpenAIModel
+from barebear import Bear, Task, Policy, Tool
 
 # --- Tools ---
 
@@ -49,7 +52,7 @@ def search_web(query: str) -> str:
 
 
 def summarize(text: str) -> str:
-    """Return a condensed version — just trims for the mock."""
+    """Return a condensed version of the input."""
     sentences = text.split(". ")
     if len(sentences) <= 2:
         return text
@@ -59,9 +62,22 @@ def summarize(text: str) -> str:
 
 # --- Main ---
 
+def make_model(provider: str):
+    if provider == "ollama":
+        from barebear import OllamaModel
+        return OllamaModel()
+    from barebear import OpenRouterModel
+    return OpenRouterModel()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Research assistant example")
-    parser.add_argument("--live", action="store_true", help="Use OpenAI instead of MockModel")
+    parser.add_argument(
+        "--provider",
+        choices=["openrouter", "ollama"],
+        default="openrouter",
+        help="Model backend (default: openrouter)",
+    )
     parser.add_argument("--verbose", action="store_true", help="Print full JSON trace")
     parser.add_argument("--question", default="What are the best Python agent frameworks?",
                         help="Research question to investigate")
@@ -74,10 +90,7 @@ def main():
 
     policy = Policy(max_steps=10, max_tool_calls=6, max_cost_usd=0.50)
 
-    if args.live:
-        model = OpenAIModel()
-    else:
-        model = MockModel(mode="auto")
+    model = make_model(args.provider)
 
     bear = Bear(model=model, tools=tools, policy=policy)
     task = Task(goal="Research the following question and provide a synthesis of findings.",

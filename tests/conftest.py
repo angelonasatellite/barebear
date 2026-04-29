@@ -1,7 +1,8 @@
 import pytest
 
-from barebear import Bear, MockModel, Policy, Task, Tool
+from barebear import Bear, Policy, Task, Tool
 from barebear.models.base import ModelResponse
+from barebear.testing import FakeModel
 
 
 # --------------- Tools ---------------
@@ -65,13 +66,13 @@ def search_task():
 # --------------- Models ---------------
 
 @pytest.fixture
-def auto_mock():
-    return MockModel(mode="auto", final_text="Done.")
+def auto_fake():
+    return FakeModel(mode="auto", final_text="Done.")
 
 
 @pytest.fixture
-def scripted_mock():
-    return MockModel(responses=[
+def scripted_fake():
+    return FakeModel(responses=[
         ModelResponse(content="Step one done.", prompt_tokens=10, completion_tokens=5),
         ModelResponse(content="All done.", prompt_tokens=10, completion_tokens=5),
     ])
@@ -80,10 +81,10 @@ def scripted_mock():
 # --------------- Bears ---------------
 
 @pytest.fixture
-def basic_bear(auto_mock, search_tool):
-    return Bear(model=auto_mock, tools=[search_tool])
+def basic_bear(auto_fake, search_tool):
+    return Bear(model=auto_fake, tools=[search_tool])
 
 
 @pytest.fixture
-def strict_bear(auto_mock, search_tool, strict_policy):
-    return Bear(model=auto_mock, tools=[search_tool], policy=strict_policy)
+def strict_bear(auto_fake, search_tool, strict_policy):
+    return Bear(model=auto_fake, tools=[search_tool], policy=strict_policy)

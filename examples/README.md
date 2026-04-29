@@ -1,10 +1,19 @@
 # BareBear Examples
 
-Each example runs with `MockModel` by default — no API keys needed.
-Pass `--live` to use OpenAI, and `--verbose` for a full JSON trace.
+Each example runs against a real model. The default is OpenRouter (free tier
+available, OpenAI-compatible). Pass `--provider ollama` to run against a local
+Ollama server instead. Pass `--verbose` for a full JSON trace.
 
 ```bash
 export PYTHONPATH=src
+export OPENROUTER_API_KEY=sk-or-...   # grab a free key at <https://openrouter.ai>
+```
+
+To use Ollama instead, install it from <https://ollama.com>, then:
+
+```bash
+ollama pull qwen2.5:3b
+ollama serve
 ```
 
 ## Research Assistant
@@ -13,7 +22,7 @@ Searches for information and synthesizes findings into a summary.
 
 ```bash
 python examples/research_assistant/run.py
-python examples/research_assistant/run.py --live --verbose
+python examples/research_assistant/run.py --provider ollama --verbose
 ```
 
 ## Email Approval

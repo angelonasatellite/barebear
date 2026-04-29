@@ -27,4 +27,16 @@ def test_task_unique_ids():
 def test_task_to_dict():
     t = Task(goal="g", input={"k": "v"}, context="ctx", task_id="abc")
     d = t.to_dict()
-    assert d == {"task_id": "abc", "goal": "g", "input": {"k": "v"}, "context": "ctx"}
+    assert d == {
+        "task_id": "abc",
+        "goal": "g",
+        "input": {"k": "v"},
+        "context": "ctx",
+        "system_prompt": None,
+    }
+
+
+def test_task_with_system_prompt():
+    t = Task(goal="g", system_prompt="You are a helpful tutor.")
+    assert t.system_prompt == "You are a helpful tutor."
+    assert t.to_dict()["system_prompt"] == "You are a helpful tutor."

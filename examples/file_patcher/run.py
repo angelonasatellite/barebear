@@ -1,13 +1,16 @@
 """
 File patcher: proposes code edits without applying them.
 Demonstrates side-effect staging — propose_patch is allowed, apply_patch is blocked.
+
+Run with:
+    python examples/file_patcher/run.py                      # uses OpenRouter (default)
+    python examples/file_patcher/run.py --provider ollama    # uses local Ollama
 """
 
 import argparse
 import json
 
-from barebear import Bear, Task, Policy, Tool, Report
-from barebear.models import MockModel, OpenAIModel
+from barebear import Bear, Task, Policy, Tool
 
 # --- Sample file content the agent "reads" ---
 
@@ -58,15 +61,26 @@ def propose_patch(path: str, original: str, replacement: str) -> str:
 
 
 def apply_patch(path: str, original: str, replacement: str) -> str:
-    # This would write to disk in real usage. Policy should block it.
+    # Would write to disk in real usage. Policy blocks it in this example.
     return f"Applied patch to {path}."
 
 
-# --- Main ---
+def make_model(provider: str):
+    if provider == "ollama":
+        from barebear import OllamaModel
+        return OllamaModel()
+    from barebear import OpenRouterModel
+    return OpenRouterModel()
+
 
 def main():
     parser = argparse.ArgumentParser(description="File patcher (side-effect staging)")
-    parser.add_argument("--live", action="store_true", help="Use OpenAI instead of MockModel")
+    parser.add_argument(
+        "--provider",
+        choices=["openrouter", "ollama"],
+        default="openrouter",
+        help="Model backend (default: openrouter)",
+    )
     parser.add_argument("--verbose", action="store_true", help="Print full JSON trace")
     args = parser.parse_args()
 
@@ -88,10 +102,7 @@ def main():
         allow_external_side_effects=False,
     )
 
-    if args.live:
-        model = OpenAIModel()
-    else:
-        model = MockModel(mode="auto")
+    model = make_model(args.provider)
 
     bear = Bear(model=model, tools=tools, policy=policy)
     task = Task(
@@ -117,7 +128,7 @@ def main():
             print(f"  - original:    {patch['original'][:80]}{'...' if len(patch['original']) > 80 else ''}")
             print(f"  + replacement: {patch['replacement'][:80]}{'...' if len(patch['replacement']) > 80 else ''}")
     else:
-        print("\nNo patches were proposed (MockModel may not have called propose_patch).")
+        print("\nNo patches were proposed.")
 
     if args.verbose:
         print("\n--- JSON Trace ---")

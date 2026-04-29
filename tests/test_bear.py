@@ -1,9 +1,10 @@
-from barebear import Bear, MockModel, Policy, Task, Tool
+from barebear import Bear, Policy, Task, Tool
 from barebear.models.base import ModelResponse
+from barebear.testing import FakeModel
 
 
 def test_basic_run_completes():
-    mock = MockModel(mode="auto", final_text="Hello!")
+    mock = FakeModel(mode="auto", final_text="Hello!")
     bear = Bear(model=mock, tools=[])
     report = bear.run(Task(goal="Say hi"))
     assert report.status == "completed"
@@ -12,7 +13,7 @@ def test_basic_run_completes():
 
 def test_run_with_tool_calls():
     search = Tool(name="search", fn=lambda query: f"results for {query}", description="Search")
-    mock = MockModel(mode="auto", final_text="Found it.")
+    mock = FakeModel(mode="auto", final_text="Found it.")
     bear = Bear(model=mock, tools=[search])
     report = bear.run(Task(goal="Find bears"))
     assert report.status == "completed"
@@ -24,7 +25,7 @@ def test_run_with_tool_calls():
 
 def test_policy_blocks_tool():
     bad_tool = Tool(name="danger", fn=lambda: "boom", description="dangerous")
-    mock = MockModel(mode="auto", final_text="Ok.")
+    mock = FakeModel(mode="auto", final_text="Ok.")
     policy = Policy(blocked_tools=["danger"])
     bear = Bear(model=mock, tools=[bad_tool], policy=policy)
     report = bear.run(Task(goal="Do something"))
@@ -35,7 +36,7 @@ def test_policy_blocks_tool():
 
 
 def test_budget_exceeded_stops_run():
-    mock = MockModel(mode="auto", final_text="Done.")
+    mock = FakeModel(mode="auto", final_text="Done.")
     policy = Policy(max_steps=1)
     search = Tool(name="search", fn=lambda query: "results", description="Search")
     bear = Bear(model=mock, tools=[search], policy=policy)
@@ -45,7 +46,7 @@ def test_budget_exceeded_stops_run():
 
 def test_approval_pauses_run():
     email_tool = Tool(name="send_email", fn=lambda to, body: "sent", description="Send email")
-    mock = MockModel(mode="auto", final_text="Done.")
+    mock = FakeModel(mode="auto", final_text="Done.")
     policy = Policy(require_approval_for=["send_email"])
     bear = Bear(model=mock, tools=[email_tool], policy=policy)
     report = bear.run(Task(goal="Send an email"))
@@ -57,7 +58,7 @@ def test_approval_pauses_run():
 
 
 def test_plan_mode():
-    mock = MockModel(mode="auto", final_text="Plan: step 1, step 2")
+    mock = FakeModel(mode="auto", final_text="Plan: step 1, step 2")
     bear = Bear(model=mock, tools=[])
     plan = bear.plan(Task(goal="Plan something"))
     assert "task_id" in plan
@@ -66,7 +67,7 @@ def test_plan_mode():
 
 
 def test_report_receipt_generated():
-    mock = MockModel(mode="auto", final_text="Done.")
+    mock = FakeModel(mode="auto", final_text="Done.")
     bear = Bear(model=mock, tools=[])
     report = bear.run(Task(goal="Quick task"))
     text = report.summary()
@@ -77,7 +78,7 @@ def test_report_receipt_generated():
 def test_multiple_tools_called_in_sequence():
     tool_a = Tool(name="step_one", fn=lambda: "a done", description="First step")
     tool_b = Tool(name="step_two", fn=lambda: "b done", description="Second step")
-    mock = MockModel(mode="auto", final_text="All done.")
+    mock = FakeModel(mode="auto", final_text="All done.")
     bear = Bear(model=mock, tools=[tool_a, tool_b])
     report = bear.run(Task(goal="Do two things"))
     assert report.status == "completed"
@@ -88,7 +89,7 @@ def test_multiple_tools_called_in_sequence():
 
 
 def test_run_with_scripted_model():
-    mock = MockModel(responses=[
+    mock = FakeModel(responses=[
         ModelResponse(content="All done.", prompt_tokens=10, completion_tokens=5),
     ])
     bear = Bear(model=mock, tools=[])
@@ -98,7 +99,7 @@ def test_run_with_scripted_model():
 
 
 def test_uncertainty_extracted_from_response():
-    mock = MockModel(responses=[
+    mock = FakeModel(responses=[
         ModelResponse(
             content="I found some results but I'm not sure about the second one.",
             prompt_tokens=10,
@@ -111,7 +112,7 @@ def test_uncertainty_extracted_from_response():
 
 
 def test_assumptions_extracted_from_response():
-    mock = MockModel(responses=[
+    mock = FakeModel(responses=[
         ModelResponse(
             content="I assume the data is in CSV format. Here are the results.",
             prompt_tokens=10,
@@ -124,17 +125,17 @@ def test_assumptions_extracted_from_response():
 
 
 def test_bear_has_checkpoint_manager():
-    bear = Bear(model=MockModel(mode="auto"), tools=[])
+    bear = Bear(model=FakeModel(mode="auto"), tools=[])
     assert bear.checkpoints is not None
     assert len(bear.checkpoints.all()) == 0
 
 
 def test_state_accessible():
-    bear = Bear(model=MockModel(mode="auto"), tools=[])
+    bear = Bear(model=FakeModel(mode="auto"), tools=[])
     bear.state.set("greeting", "hi")
     assert bear.state.get("greeting") == "hi"
 
 
 def test_custom_bear_id():
-    bear = Bear(model=MockModel(mode="auto"), tools=[], bear_id="bear-42")
+    bear = Bear(model=FakeModel(mode="auto"), tools=[], bear_id="bear-42")
     assert bear.bear_id == "bear-42"

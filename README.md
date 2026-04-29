@@ -1,97 +1,173 @@
 <div align="center">
-<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.1.1/assets/logo.png" width="320">
+<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.0/assets/logo.png" width="320">
 <br>
-<strong>Every step leaves a print.</strong>
+<strong>The free agentic AI course.</strong>
 <br><br>
-Minimal agent framework. Explicit state, policy-first tools, honest uncertainty.
+12 lessons. 12 concepts. Real models. No magic. Read the framework — it's the textbook.
 <br><br>
 <a href="https://github.com/richey-malhotra/barebear/actions"><img src="https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
-<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.1.1" alt="PyPI"></a>
+<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.2.0" alt="PyPI"></a>
+<a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear" alt="PyPI downloads (total)"></a>
+<a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear/month" alt="PyPI downloads / month"></a>
+<a href="https://github.com/richey-malhotra/barebear/stargazers"><img src="https://img.shields.io/github/stars/richey-malhotra/barebear?style=flat&logo=github" alt="GitHub stars"></a>
 <br><br>
-<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.1.1/demo.gif" alt="BareBear demo" width="700">
+<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
+<br><br>
+<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.0/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
 </div>
 
 ---
 
-## What is BareBear?
+## Three doors
 
-BareBear is a Python framework for building LLM agents that you can actually trust in production. It gives you 7 primitives, a policy engine, and a run receipt — nothing else. Every tool call is checked against policy before execution. Every run produces a traceable report. The agent knows what it doesn't know, and tells you.
+**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
 
-## Why?
+**For teachers** — [**See the syllabus**](lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment.
 
-Most agent frameworks give you magic orchestration, invisible state, and tools that fire without guardrails. That works great in demos. It falls apart when a customer asks why the agent sent that email, or when your bill spikes because the loop ran 200 steps.
+**For engineers** — [**Read the framework**](src/barebear/). The whole thing is ~1,500 lines of Python. No magic, no DSLs, no metaprogramming. Open it.
 
-BareBear is built on different assumptions:
+---
 
-- **Tools are dangerous.** Every tool declares its risk level and side effects. Policy checks happen *before* execution, not after.
-- **State should be visible.** No hidden memory, no magic context. State is a dict you can inspect, snapshot, and diff.
-- **Autonomy needs bounds.** Step limits, cost caps, token budgets, approval gates — all declared upfront in policy.
-- **Runs should be receipts.** Every run produces a `Report` with steps, costs, assumptions, and uncertainties. You can audit it, log it, replay it.
-- **Uncertainty is data, not a bug.** If the agent isn't sure, it says so. Assumptions are tracked explicitly.
+## Why barebear exists
 
-## Quickstart
+In 2026, every CS department on earth is scrambling to teach AI, and the
+curriculum doesn't yet exist. Teachers are improvising slide decks the night
+before. Students are reading 50,000 lines of magic in popular agent
+frameworks, getting confused, and giving up — or worse, *not* getting
+confused, and shipping things they don't understand.
+
+Most agent frameworks were written to demo well. **BareBear was written to
+be read.** It is small enough that a sixth-form student can read every line
+of it in one sitting, and end up understanding what an "agent" actually is.
+
+It runs against real LLMs from lesson one — no fake models, no toy mocks.
+The default backend is OpenRouter (free tier, no card required). Everything
+you build with barebear, you build against the same LLMs you'd use in
+production.
+
+The framework is also genuinely useful for shipping production agents — the
+same primitives that let a student understand the agent loop in twenty
+minutes let an engineer ship an auditable agent in an afternoon. But the
+audience this release is built for is **the student and the teacher**.
+
+---
+
+## The 12-lesson syllabus
+
+| #  | Concept              | What you'll build                                                          |
+|----|----------------------|----------------------------------------------------------------------------|
+| 1  | What an LLM is       | A single chat-completion call. See tokens go in and out.                   |
+| 2  | The agent loop       | A one-tool agent. Watch perceive → think → act → observe.                  |
+| 3  | Tool design          | A multi-tool agent. Schemas, descriptions, when the model picks each.      |
+| 4  | State & memory       | Short-term (messages) vs long-term (`State` dict). Persist across runs.    |
+| 5  | Budgets              | Add a runaway-loop bug; watch the budget save you.                         |
+| 6  | Policy & guardrails  | Block a tool, classify side-effects, declare risk.                         |
+| 7  | Checkpoints          | An email-send agent that pauses for human approval.                        |
+| 8  | Planning             | `bear.plan()` before `bear.run()`. When each is the right move.            |
+| 9  | Reflection           | Self-critique loop with `Reflect` — agent reviews its own work.            |
+| 10 | Multi-agent          | A Bear that hires another Bear. Multi-agent in <40 lines.                  |
+| 11 | Evaluation           | Read a `Report`. Write tests for an agent.                                 |
+| 12 | Honest uncertainty   | Make the agent flag what it does not know.                                 |
+
+Lessons 1–12 ship as Jupyter notebooks. Lessons 7–12 also ship as plain
+Python scripts. **[Browse the full syllabus →](lessons/README.md)**
+
+For teachers: classroom setup, per-lesson pacing notes, common student
+pitfalls, suggested assessments, and 3-/6-/12-week subset paths are all in
+the **[instructor guide](docs/teaching/instructor-guide.md)**.
+
+---
+
+## Setup
+
+### OpenRouter (recommended — free, no install)
 
 ```bash
-pip install barebear
+pip install barebear[openai]
+export OPENROUTER_API_KEY="sk-or-..."   # grab a free key at https://openrouter.ai
 ```
 
+### Ollama (offline, local)
+
+```bash
+pip install barebear[openai]
+# from https://ollama.com — install the binary, then:
+ollama pull qwen2.5:3b
+ollama serve
+```
+
+---
+
+## Quickstart for engineers
+
 ```python
-from barebear import Bear, Task, Policy, Tool, MockModel
+from barebear import Bear, Task, Tool, Policy, OpenRouterModel
 
 def greet(name: str) -> str:
     return f"Hello, {name}!"
 
 bear = Bear(
-    model=MockModel(),
-    tools=[Tool("greet", fn=greet, description="Greet someone by name")],
+    model=OpenRouterModel(),
+    tools=[Tool(name="greet", fn=greet, description="Greet someone by name")],
     policy=Policy(max_steps=5, max_cost_usd=0.05),
 )
 
-result = bear.run(Task(goal="Greet the user Alice"))
+result = bear.run(Task(goal="Greet a user named Alice"), trace=True)
 print(result.summary())
 ```
 
+`trace=True` streams every loop turn to stdout — for a live narration of
+the agent's thinking. Drop it in production.
+
 ```text
-==================================================
-  BAREBEAR RUN REPORT
-==================================================
-  Task ID:    a1b2c3d4
-  Status:     completed
-  Steps:      2
-  Tokens:     160
-  Cost:       $0.0000
-  Duration:   0.00s
---------------------------------------------------
-  STEPS:
-    1. [tool_call] Called greet (tool: greet)
-    2. [response] Task completed successfully.
---------------------------------------------------
-==================================================
+─── turn 1 ───
+> calling model with 2 messages, 1 tools available
+< tool call: greet(name="Alice")
+→ greet returned: Hello, Alice!
+─── turn 2 ───
+< final answer: Hello, Alice! How can I help you today?
+
+============================================================
+status: completed  |  turns: 2  |  tokens: 187  |  cost: $0.0001
+============================================================
 ```
 
-No API key needed — `MockModel` auto-calls available tools and produces a final response. Swap in `OpenAIModel("gpt-4o-mini")` or `OpenRouterModel("meta-llama/llama-4-scout")` when you're ready for the real thing.
+Full quickstart with policy, custom system prompts, reflection, and
+multi-agent: **[docs/quickstart.md](docs/quickstart.md)**.
 
-## The 7 Primitives
+---
+
+## The 7 primitives
 
 | Primitive | What it does |
 | --- | --- |
 | **Bear** | The agent. Holds model, tools, policy, state. Runs tasks. |
-| **Task** | A unit of work: a goal string, input dict, optional context. |
+| **Task** | A unit of work: a goal string, input dict, optional context, optional system prompt. |
 | **State** | Explicit key-value store with snapshot history and change tracking. |
 | **Tool** | A callable with declared risk, side effects, and approval requirements. |
 | **Policy** | Constraints: step limits, cost caps, blocked tools, approval lists. |
 | **Checkpoint** | A saved pause-point for human approval before high-risk actions. |
 | **Report** | The run receipt: every step, token count, cost, assumptions, uncertainties. |
 
+Plus two helpers for advanced lessons:
+
+| Helper | What it does |
+| --- | --- |
+| **Reflect** | Three-method self-critique: `critique`, `revise`, `run`. |
+| **`bear.as_tool(...)`** | Wraps a Bear so another Bear can call it. Multi-agent in one line. |
+
 That's it. No chains, no graphs, no planners, no routers. Just the bones.
+
+---
 
 ## Features
 
 ### Policy-first tool execution
 
-Every tool call passes through policy before it runs. Block tools, require approval, or reject external side effects — all in one declaration.
+Every tool call passes through policy before it runs. Block tools, require
+approval, or reject external side effects — all in one declaration.
 
 ```python
 policy = Policy(
@@ -104,7 +180,9 @@ policy = Policy(
 
 ### Budget tracking
 
-Step counts, tool calls, token usage, and dollar cost — all tracked against limits you set. If a run hits its budget, it stops cleanly with a `budget_exceeded` status.
+Step counts, tool calls, token usage, and dollar cost — all tracked against
+limits you set. If a run hits its budget, it stops cleanly with a
+`budget_exceeded` status.
 
 ```python
 policy = Policy(max_steps=8, max_cost_usd=0.10, max_tokens=50000)
@@ -112,7 +190,8 @@ policy = Policy(max_steps=8, max_cost_usd=0.10, max_tokens=50000)
 
 ### Checkpoint / approval gates
 
-High-risk tools pause the run and create a `Checkpoint`. You approve or reject, then resume.
+High-risk tools pause the run and create a `Checkpoint`. You approve or
+reject, then resume.
 
 ```python
 bear = Bear(
@@ -133,7 +212,9 @@ if result.status == "paused":
 
 ### Side-effect staging
 
-Tools declare `side_effects="none"`, `"internal"`, or `"external"`. Policy can block external side effects entirely, so your agent can *propose* actions without executing them.
+Tools declare `side_effects="none"`, `"internal"`, or `"external"`. Policy
+can block external side effects entirely, so your agent can *propose*
+actions without executing them.
 
 ```python
 Tool("propose_patch", fn=propose, description="Suggest a code change",
@@ -144,7 +225,8 @@ Tool("apply_patch", fn=apply, description="Apply the change",
 
 ### Run receipts
 
-Every `bear.run()` returns a `Report` — a full trace you can print, serialise to JSON, or store for auditing.
+Every `bear.run()` returns a `Report` — a full trace you can print,
+serialise to JSON, or store for auditing.
 
 ```python
 result = bear.run(task)
@@ -152,12 +234,13 @@ result = bear.run(task)
 print(result.summary())       # human-readable receipt
 print(result.to_json())       # full JSON trace
 print(result.total_cost_usd)  # what it cost
-print(result.steps)            # list of every step taken
+print(result.steps)           # list of every step taken
 ```
 
 ### Honest uncertainty
 
-Bears track what they don't know. Assumptions and missing information are first-class data in the report, not buried in log noise.
+Bears track what they don't know. Assumptions and missing information are
+first-class data in the report, not buried in log noise.
 
 ```python
 result = bear.run(task)
@@ -165,12 +248,37 @@ print(result.assumptions)     # ["Customer tier assumed from email domain"]
 print(result.uncertainties)   # ["Could not verify account status"]
 ```
 
-## Examples
+### Multi-agent in one line
 
-All examples run with `MockModel` by default — no API keys needed. Pass `--live` to use OpenAI.
+```python
+researcher = Bear(model=OpenRouterModel(), tools=[search_tool])
+writer = Bear(
+    model=OpenRouterModel(),
+    tools=[researcher.as_tool(name="research", description="Research a topic")],
+)
+writer.run(Task(goal="Write a brief on UK A-level CS reform."))
+```
+
+### Reflection in three calls
+
+```python
+from barebear import Reflect, OpenRouterModel
+
+reflect = Reflect(model=OpenRouterModel())
+out = reflect.run(goal="Define an LLM for a teen", answer="It's an AI thing.")
+print(out.critique, out.revised, sep="\n---\n")
+```
+
+---
+
+## Examples (full case studies)
+
+Each example is a complete, runnable agent. Default backend is OpenRouter.
+Pass `--provider ollama` to run locally instead.
 
 ```bash
 export PYTHONPATH=src
+export OPENROUTER_API_KEY="sk-or-..."
 ```
 
 | Example | What it shows | Run it |
@@ -180,11 +288,13 @@ export PYTHONPATH=src
 | **File Patcher** | Side-effect staging (propose allowed, apply blocked) | `python examples/file_patcher/run.py` |
 | **Ticket Triage** | Multi-step classification, budget tracking across calls | `python examples/ticket_triage/run.py` |
 
+---
+
 ## Architecture
 
 ```text
 ┌─────────────────────────────────────────────────┐
-│                   bear.run(task)                 │
+│                   bear.run(task)                │
 ├─────────────────────────────────────────────────┤
 │                                                 │
 │   Task ──► System Prompt + User Message         │
@@ -201,32 +311,54 @@ export PYTHONPATH=src
 │                               │                 │
 │                    ┌──────────┼──────────┐      │
 │                    ▼          ▼          ▼      │
-│                 Allowed    Blocked    Approval   │
-│                 ──► Execute ──► Skip  ──► Pause  │
+│                 Allowed    Blocked    Approval  │
+│                 ──► Execute ──► Skip  ──► Pause │
 │                     │                    │      │
 │                     ▼                    ▼      │
-│                Tool result          Checkpoint   │
-│                ──► Loop              (resume)    │
+│                Tool result          Checkpoint  │
+│                ──► Loop              (resume)   │
 │                                                 │
 ├─────────────────────────────────────────────────┤
 │  State (explicit, snapshotable, diffable)       │
 │  Budget (steps, tokens, cost — all tracked)     │
-│  Report (full receipt of everything that happened)│
+│  Report (full receipt of everything)            │
 └─────────────────────────────────────────────────┘
 ```
 
-See [docs/architecture.md](docs/architecture.md) for the full breakdown.
+See **[docs/architecture.md](docs/architecture.md)** for the full breakdown.
+
+---
 
 ## Philosophy
 
-> Most frameworks optimise for demos. BareBear optimises for reality.
+> Most frameworks optimise for demos. BareBear optimises for understanding.
 
-Read the [manifesto](docs/manifesto.md).
+Read the **[manifesto](docs/manifesto.md)**.
+
+---
+
+## Teaching with barebear
+
+If you teach a course or club using barebear, we'd love to know. Two ways
+to tell us:
+
+- [Star the repo](https://github.com/richey-malhotra/barebear) so other
+  teachers can find it.
+- [Open an issue](https://github.com/richey-malhotra/barebear/issues) with
+  the tag `taught-with`.
+
+Lesson contributions are welcomed — see
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). We welcome PRs, bug reports, and honest feedback.
+PRs, bug reports, lesson contributions, and honest feedback all welcome.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## License
+---
+
+## Licence
 
 [MIT](LICENSE) — Richey Malhotra, 2026.

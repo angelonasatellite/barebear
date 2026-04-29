@@ -13,7 +13,7 @@ A clear description of the bug.
 Steps or a minimal code snippet:
 
 ```python
-from barebear import Bear, Task, Tool, MockModel
+from barebear import Bear, Task, Tool, OpenRouterModel
 
 # ...
 ```

@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
+import sys
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TextIO
 from uuid import uuid4
 
 from barebear.budget import Budget
@@ -49,18 +50,35 @@ class Bear:
         self._current_task: Optional[Task] = None
         self._report: Optional[Report] = None
         self._uncertainty = Uncertainty()
+        self._trace: bool = False
+        self._trace_stream: TextIO = sys.stdout
+        self._turn: int = 0
 
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
 
-    def run(self, task: Task) -> Report:
-        """Execute a task to completion and return a report."""
+    def run(
+        self,
+        task: Task,
+        trace: bool = False,
+        trace_stream: Optional[TextIO] = None,
+    ) -> Report:
+        """Execute a task to completion and return a report.
+
+        Set ``trace=True`` to stream a learner-friendly narration of the
+        agent loop to stdout (or to ``trace_stream`` if provided): each
+        turn, every tool call, every observation, the final answer.
+        """
+        self._trace = trace
+        self._trace_stream = trace_stream if trace_stream is not None else sys.stdout
+        self._turn = 0
         self._init_run(task)
         assert self._report is not None
         assert self._budget is not None
         report = self._report
         start = time.monotonic()
+        self._trace_run_header(task)
 
         try:
             self._run_loop()
@@ -86,6 +104,7 @@ class Bear:
 
         elapsed = time.monotonic() - start
         self._finalize_report(elapsed)
+        self._trace_run_footer(report)
         return report
 
     def plan(self, task: Task) -> dict:
@@ -214,6 +233,48 @@ class Bear:
     def checkpoints(self) -> CheckpointManager:
         return self._checkpoint_mgr
 
+    def as_tool(
+        self,
+        name: str,
+        description: str,
+        max_steps: Optional[int] = None,
+    ) -> "Tool":
+        """Wrap this Bear so another Bear can call it as a Tool.
+
+        The returned Tool takes a single ``goal: str`` argument. When the
+        outer Bear invokes it, this Bear runs the goal as its own Task and
+        returns the final output as a string. State is isolated: each call
+        starts a fresh run.
+        """
+        inner_bear = self
+
+        def _delegate(goal: str) -> str:
+            sub_task = Task(goal=goal)
+            if max_steps is not None:
+                original = inner_bear.policy.max_steps
+                inner_bear.policy.max_steps = max_steps
+                try:
+                    sub_report = inner_bear.run(sub_task)
+                finally:
+                    inner_bear.policy.max_steps = original
+            else:
+                sub_report = inner_bear.run(sub_task)
+
+            if sub_report.status != "completed":
+                return (
+                    f"Sub-agent did not complete (status: {sub_report.status}). "
+                    f"Last output: {sub_report.final_output or '(none)'}"
+                )
+            return sub_report.final_output or ""
+
+        return Tool(
+            name=name,
+            fn=_delegate,
+            description=description,
+            risk="medium",
+            side_effects="internal",
+        )
+
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
@@ -236,12 +297,14 @@ class Bear:
         report = self._report
 
         while True:
+            self._turn += 1
             budget.record_step()
             budget.check()
 
             tool_schemas = [
                 t.to_openai_schema() for t in self._registry.list_tools()
             ]
+            self._trace_turn_header(tool_count=len(tool_schemas))
             response = self.model.complete(
                 self._messages, tools=tool_schemas or None
             )
@@ -259,6 +322,7 @@ class Bear:
                 self._extract_uncertainty(response.content)
                 report.final_output = response.content
                 report.add_step("response", response.content)
+                self._trace_final(response.content)
                 break
 
             # Handle tool calls
@@ -363,6 +427,7 @@ class Bear:
                 tool_args=arguments,
                 result=result_str,
             )
+            self._trace_tool_call(tool_name, arguments, result_str)
             last_result = {
                 "type": "tool_call",
                 "tool_name": tool_name,
@@ -395,16 +460,21 @@ class Bear:
             return str(result)
 
     def _build_system_prompt(self, task: Task) -> str:
-        parts = [
-            "You are a BareBear agent. You accomplish tasks by reasoning step-by-step "
-            "and using available tools when needed.",
-            "",
-            "## Your Task",
-            f"Goal: {task.goal}",
-        ]
-
-        if task.context:
-            parts.append(f"Context: {task.context}")
+        # A custom system_prompt on Task replaces the agent persona and goal
+        # block. Policy, tool list, state, and instructions are always appended
+        # so the model still has the operational context it needs.
+        if task.system_prompt:
+            parts = [task.system_prompt]
+        else:
+            parts = [
+                "You are a BareBear agent. You accomplish tasks by reasoning step-by-step "
+                "and using available tools when needed.",
+                "",
+                "## Your Task",
+                f"Goal: {task.goal}",
+            ]
+            if task.context:
+                parts.append(f"Context: {task.context}")
 
         parts.append("")
         parts.append(self.policy.to_prompt_text())
@@ -488,6 +558,54 @@ class Bear:
         "assumption:",
         "this assumes",
     ]
+
+    # ------------------------------------------------------------------
+    # Trace output (only emits when self._trace is True)
+    # ------------------------------------------------------------------
+
+    def _emit(self, line: str = "") -> None:
+        if self._trace:
+            print(line, file=self._trace_stream, flush=True)
+
+    def _trace_run_header(self, task: Task) -> None:
+        if not self._trace:
+            return
+        self._emit("=" * 60)
+        self._emit(f"BAREBEAR run — task: {task.task_id}")
+        self._emit(f"goal: {task.goal}")
+        if task.input:
+            self._emit(f"input: {json.dumps(task.input)}")
+        tools = [t.name for t in self._registry.list_tools()]
+        self._emit(f"tools: {tools if tools else '(none)'}")
+        self._emit("=" * 60)
+
+    def _trace_turn_header(self, tool_count: int) -> None:
+        if not self._trace:
+            return
+        self._emit("")
+        self._emit(f"─── turn {self._turn} ───")
+        self._emit(f"> calling model with {len(self._messages)} messages, {tool_count} tools available")
+
+    def _trace_tool_call(self, name: str, args: dict, result: str) -> None:
+        if not self._trace:
+            return
+        arg_repr = ", ".join(f"{k}={json.dumps(v)}" for k, v in args.items())
+        self._emit(f"< tool call: {name}({arg_repr})")
+        snippet = result if len(result) <= 200 else result[:200] + "..."
+        self._emit(f"→ {name} returned: {snippet}")
+
+    def _trace_final(self, content: str) -> None:
+        if not self._trace:
+            return
+        self._emit(f"< final answer: {content}")
+
+    def _trace_run_footer(self, report: Report) -> None:
+        if not self._trace:
+            return
+        self._emit("")
+        self._emit("=" * 60)
+        self._emit(f"status: {report.status}  |  turns: {self._turn}  |  tokens: {report.total_tokens}  |  cost: ${report.total_cost_usd:.4f}")
+        self._emit("=" * 60)
 
     def _extract_uncertainty(self, text: str) -> None:
         """Scan model output for uncertainty and assumption signals."""

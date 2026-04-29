@@ -1,15 +1,18 @@
 """
 Email approval agent: reads a support ticket, drafts a reply, then tries to send.
 Demonstrates requires_approval, checkpoint gating, and side-effect policy.
+
+Run with:
+    python examples/email_approval/run.py                      # uses OpenRouter (default)
+    python examples/email_approval/run.py --provider ollama    # uses local Ollama
+
+Set OPENROUTER_API_KEY in your environment for the default path.
 """
 
 import argparse
 import json
 
-from barebear import Bear, Task, Policy, Tool, Report, Checkpoint
-from barebear.models import MockModel, OpenAIModel
-
-# --- Fake data ---
+from barebear import Bear, Task, Policy, Tool, Checkpoint
 
 TICKETS = {
     "TK-1042": {
@@ -32,8 +35,6 @@ TICKETS = {
     },
 }
 
-# --- Tools ---
-
 
 def read_ticket(ticket_id: str) -> str:
     ticket = TICKETS.get(ticket_id)
@@ -52,15 +53,26 @@ def draft_email(to: str, subject: str, body: str) -> str:
 
 
 def send_email(to: str, subject: str, body: str) -> str:
-    # In real usage this would actually send. The mock just confirms.
+    # Stub — wire up a real provider (SMTP, Resend, SendGrid, ...) when going live.
     return f"Email sent to {to} with subject '{subject}'."
 
 
-# --- Main ---
+def make_model(provider: str):
+    if provider == "ollama":
+        from barebear import OllamaModel
+        return OllamaModel()
+    from barebear import OpenRouterModel
+    return OpenRouterModel()
+
 
 def main():
     parser = argparse.ArgumentParser(description="Email approval gate example")
-    parser.add_argument("--live", action="store_true", help="Use OpenAI instead of MockModel")
+    parser.add_argument(
+        "--provider",
+        choices=["openrouter", "ollama"],
+        default="openrouter",
+        help="Model backend (default: openrouter)",
+    )
     parser.add_argument("--verbose", action="store_true", help="Print full JSON trace")
     parser.add_argument("--ticket", default="TK-1042", help="Ticket ID to respond to")
     args = parser.parse_args()
@@ -83,10 +95,7 @@ def main():
         allow_external_side_effects=False,
     )
 
-    if args.live:
-        model = OpenAIModel()
-    else:
-        model = MockModel(mode="auto")
+    model = make_model(args.provider)
 
     bear = Bear(model=model, tools=tools, policy=policy)
     task = Task(
@@ -101,12 +110,10 @@ def main():
     print("=" * 60)
     print(result.summary())
 
-    # Show any checkpoints that fired
     checkpoints = [s for s in result.steps if isinstance(getattr(s, "event", None), Checkpoint)]
     if checkpoints:
-        print(f"\n⚠ {len(checkpoints)} checkpoint(s) triggered (approval required).")
+        print(f"\n{len(checkpoints)} checkpoint(s) triggered (approval required).")
     else:
-        # Even if Checkpoint isn't surfaced as an event, the policy block should show in the report
         print("\nThe send_email tool should be blocked by policy (requires_approval + no external side effects).")
 
     if args.verbose:

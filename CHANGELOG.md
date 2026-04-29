@@ -2,6 +2,58 @@
 
 All notable changes to BareBear will be documented in this file.
 
+## 0.2.0 (2026-04-29)
+
+Pivot release. BareBear is now positioned as the free agentic AI course —
+a 12-lesson curriculum that uses the framework as its textbook. The primitives
+are unchanged; the audience and the surface around them are.
+
+### Added
+
+- **`OllamaModel`** adapter for local Ollama servers (OpenAI-compatible endpoint
+  at `http://localhost:11434/v1`). Default model: `qwen2.5:3b`.
+- **`Task.system_prompt`** — first-class field for overriding the agent persona
+  per task. Backwards compatible: when unset, the framework default applies.
+- **`Bear.run(task, trace=True)`** — streams a learner-friendly narration of
+  every loop turn to stdout (or a custom stream). For lesson notebooks and
+  live debugging.
+- **`Reflect`** helper — three small methods (`critique`, `revise`, `run`) for
+  self-critique loops. Surfaces the reflection pattern as a named primitive.
+- **`Bear.as_tool(name, description)`** — wraps a Bear so another Bear can call
+  it as a Tool. Multi-agent in one line.
+- **`lessons/`** — a 12-lesson curriculum: full Lesson 1 (notebook, Colab
+  badge, written narrative) plus written narratives for lessons 2–12.
+  Notebooks for 2–6 to follow; notebooks and scripts for 7–12 after that.
+- **`docs/teaching/instructor-guide.md`** — classroom setup, per-lesson pacing,
+  pitfalls, assessments, and 3-/6-/12-week curriculum subsets.
+- **PyPI download badges** (pepy.tech, total + monthly) and GitHub stars badge
+  in the README.
+- `Topic :: Education` and `Intended Audience :: Education` PyPI classifiers.
+
+### Changed
+
+- **`MockModel` removed from the public API.** It now lives at
+  `barebear.testing.FakeModel` and is used only by the framework's own tests.
+  Lessons and examples always run against a real model.
+- All examples now default to **OpenRouter** and accept
+  `--provider {openrouter,ollama}`. The `--live` flag is gone — every run is
+  live.
+- README, manifesto, and quickstart rewritten for the educational positioning.
+  Lead with the curriculum, the three-door first-60-seconds layout, the Colab
+  badge for Lesson 1.
+- Project description and keywords updated for educational discoverability.
+- Unused `anthropic` optional dependency removed (no AnthropicModel ships).
+- `docs/architecture.md` adapter table updated: `MockModel` and the planned
+  `AnthropicModel` are gone; `OpenRouterModel`, `OllamaModel`, and the
+  internal `barebear.testing.FakeModel` are in.
+
+### Breaking
+
+- `from barebear import MockModel` → `from barebear.testing import FakeModel`.
+- Examples: `--live` flag replaced by `--provider {openrouter,ollama}`.
+- `Task.to_dict()` now includes a `system_prompt` key (always present, may
+  be `None`).
+
 ## 0.1.1 (2026-03-16)
 
 ### Added

@@ -18,7 +18,7 @@ pip install -e ".[dev]"
 PYTHONPATH=src pytest
 ```
 
-All 86 tests should pass. If you're adding a feature, add tests for it.
+All 97 tests should pass. If you're adding a feature, add tests for it.
 
 To run with coverage:
 
@@ -49,9 +49,15 @@ Line length is 100. Target Python version is 3.9.
 ### What we're looking for
 
 - Bug fixes with a test that reproduces the bug.
-- New model adapters (Anthropic, local models, etc.).
+- New model adapters (local models, niche providers, etc.).
 - Documentation improvements.
 - New examples that show real use cases.
+- **Lesson contributions.** If you teach with BareBear and have built a
+  lesson, exercise, or worked example you'd like to share, open a PR
+  against `lessons/`. See [`lessons/README.md`](lessons/README.md) for
+  the existing structure. New lessons must include a `lesson.md`
+  narrative; a runnable notebook is encouraged. Pace, tone, and
+  difficulty should match the surrounding lessons.
 
 ### What we'll probably say no to
 

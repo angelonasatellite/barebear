@@ -6,13 +6,16 @@ from uuid import uuid4
 from barebear.models.base import ModelAdapter, ModelResponse
 
 
-class MockModel(ModelAdapter):
-    """A mock model for testing without API keys.
+class FakeModel(ModelAdapter):
+    """Deterministic stand-in model for the framework's own tests.
+
+    Not part of the public learning surface — students should always run
+    against a real model (OpenRouter or Ollama). FakeModel exists only so
+    barebear's test suite can run without network or API keys.
 
     Two modes:
-    - scripted: returns responses from a pre-defined list in order.
-    - auto: intelligently picks available tools, cycles through them,
-      then produces a final text response.
+    - scripted: returns responses from a pre-defined list, in order.
+    - auto: cycles through every available tool once, then returns final_text.
     """
 
     def __init__(
@@ -52,7 +55,6 @@ class MockModel(ModelAdapter):
         messages: List[dict],
         tools: Optional[List[dict]],
     ) -> ModelResponse:
-        # If no tools provided or we've called all available tools, produce text
         if not tools:
             return ModelResponse(
                 content=self._final_text,
@@ -60,23 +62,18 @@ class MockModel(ModelAdapter):
                 completion_tokens=30,
             )
 
-        # Extract tool names from schemas
         available = self._extract_tool_names(tools)
         uncalled = [t for t in available if t not in self._tools_called]
 
         if not uncalled:
-            # All tools have been called, produce final answer
             return ModelResponse(
                 content=self._final_text,
                 prompt_tokens=50,
                 completion_tokens=30,
             )
 
-        # Pick the next uncalled tool
         tool_name = uncalled[0]
         self._tools_called.append(tool_name)
-
-        # Generate plausible arguments from the tool schema
         arguments = self._generate_arguments(tool_name, tools, messages)
 
         return ModelResponse(
@@ -106,13 +103,10 @@ class MockModel(ModelAdapter):
         tools: List[dict],
         messages: List[dict],
     ) -> Dict[str, Any]:
-        """Generate plausible arguments for a tool call based on its schema."""
         schema: Optional[dict] = None
         for t in tools:
-            fname = ""
             if "function" in t:
-                fname = t["function"].get("name", "")
-                if fname == tool_name:
+                if t["function"].get("name", "") == tool_name:
                     schema = t["function"].get("parameters", {})
                     break
             elif t.get("name") == tool_name:
@@ -126,7 +120,6 @@ class MockModel(ModelAdapter):
         required = schema.get("required", [])
         args: Dict[str, Any] = {}
 
-        # Extract useful context from messages
         task_text = ""
         for msg in messages:
             if msg.get("role") == "user":
@@ -144,7 +137,7 @@ class MockModel(ModelAdapter):
                     elif "content" in pname.lower() or "text" in pname.lower():
                         args[pname] = "sample content"
                     else:
-                        args[pname] = f"mock_{pname}"
+                        args[pname] = f"fake_{pname}"
                 elif ptype == "number" or ptype == "integer":
                     args[pname] = 1
                 elif ptype == "boolean":
@@ -154,11 +147,10 @@ class MockModel(ModelAdapter):
                 elif ptype == "object":
                     args[pname] = {}
                 else:
-                    args[pname] = f"mock_{pname}"
+                    args[pname] = f"fake_{pname}"
 
         return args
 
     def reset(self) -> None:
-        """Reset call count and tools-called state."""
         self._call_count = 0
         self._tools_called = []

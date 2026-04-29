@@ -33,9 +33,10 @@ Thin wrappers over LLM APIs. Each adapter implements `ModelAdapter.complete()`.
 
 | Adapter | Status | Notes |
 | --- | --- | --- |
-| `MockModel` | Shipped | Auto-calls tools or replays scripted responses. No API key. |
 | `OpenAIModel` | Shipped | OpenAI chat completions with tool use. |
-| `AnthropicModel` | Planned | Claude via the Anthropic SDK. |
+| `OpenRouterModel` | Shipped | Hundreds of models via a single OpenAI-compatible endpoint. Free tier available. |
+| `OllamaModel` | Shipped | Local Ollama server (OpenAI-compatible at `localhost:11434/v1`). Offline-friendly. |
+| `barebear.testing.FakeModel` | Internal | Deterministic stand-in for the framework's own tests. Not for student use. |
 
 Adding an adapter means implementing one method:
 
