@@ -72,6 +72,11 @@ Best of both, but doubles your setup overhead.
   model said it wouldn't…" — that's the Lesson 6 conversation in disguise.
 - **Free-tier model rate limits.** During large class runs, you may hit them.
   Stagger student starts, or pre-cache responses for the demo.
+- **Free-tier model rotation.** OpenRouter occasionally retires free models.
+  If a lesson cell errors with "model not available", students can swap by
+  exporting `BAREBEAR_MODEL=...` to any other `*:free` model at
+  <https://openrouter.ai/models> — every lesson notebook reads the env var
+  with no code change.
 
 ## Suggested assessments
 

@@ -65,7 +65,14 @@ from getpass import getpass
 
 if not os.environ.get("OPENROUTER_API_KEY"):
     os.environ["OPENROUTER_API_KEY"] = getpass("Paste your OpenRouter key (sk-or-...): ")
+
+# Optional: pin a specific free-tier model. If unset, barebear uses its default.
+# Free-tier model availability rotates — swap here if a lesson cell errors with
+# "model not available". Any *:free model on https://openrouter.ai/models works.
+# os.environ["BAREBEAR_MODEL"] = "meta-llama/llama-3.2-3b-instruct:free"
+
 print("Key set. First 8 characters:", os.environ["OPENROUTER_API_KEY"][:8] + "...")
+print("Model:", os.environ.get("BAREBEAR_MODEL", "(framework default)"))
 """)
 
 

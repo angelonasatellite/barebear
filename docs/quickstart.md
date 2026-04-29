@@ -27,6 +27,20 @@ including free ones.
 export OPENROUTER_API_KEY="sk-or-..."
 ```
 
+#### Choosing a model
+
+`OpenRouterModel()` with no arguments picks `BAREBEAR_MODEL` from the
+environment if set, otherwise falls back to a built-in free-tier default.
+Free-tier model availability rotates over time — if a call errors with
+"model not available", set `BAREBEAR_MODEL` to any other `*:free` model
+listed at <https://openrouter.ai/models>:
+
+```bash
+export BAREBEAR_MODEL="meta-llama/llama-3.2-3b-instruct:free"
+```
+
+Lessons and examples respect this env var with no code changes.
+
 ### Ollama (offline, local)
 
 ```bash

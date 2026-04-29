@@ -83,6 +83,13 @@ pip install barebear
 export OPENROUTER_API_KEY=sk-or-...   # free tier — get a key at https://openrouter.ai
 ```
 
+If a free-tier model rotates off and a lesson cell errors with "model not available",
+pin a different one with one shell export — every lesson respects it:
+
+```bash
+export BAREBEAR_MODEL=meta-llama/llama-3.2-3b-instruct:free
+```
+
 ### Ollama (offline, local)
 
 Install Ollama from <https://ollama.com>, then:

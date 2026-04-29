@@ -1,5 +1,5 @@
 <div align="center">
-<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.1/assets/logo.png" width="320">
+<img alt="BareBear" src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.2/assets/logo.png" width="320">
 <br>
 <strong>The free agentic AI course.</strong>
 <br><br>
@@ -8,14 +8,14 @@
 <a href="https://github.com/richey-malhotra/barebear/actions"><img src="https://img.shields.io/github/actions/workflow/status/richey-malhotra/barebear/tests.yml?branch=main" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
-<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.2.1" alt="PyPI"></a>
+<a href="https://pypi.org/project/barebear/"><img src="https://img.shields.io/pypi/v/barebear.svg?v=0.2.2" alt="PyPI"></a>
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear" alt="PyPI downloads (total)"></a>
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear/month" alt="PyPI downloads / month"></a>
 <a href="https://github.com/richey-malhotra/barebear/stargazers"><img src="https://img.shields.io/github/stars/richey-malhotra/barebear?style=flat&logo=github" alt="GitHub stars"></a>
 <br><br>
 <a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
 <br><br>
-<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.1/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
+<img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.2/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
 </div>
 
 ---

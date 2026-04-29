@@ -20,6 +20,40 @@ def test_custom_system_prompt_replaces_default_persona():
     assert "You are a BareBear agent" not in system_msg["content"]
 
 
+def test_custom_system_prompt_omits_framework_appendix():
+    """Setting Task.system_prompt should fully replace the system message —
+    no framework-added policy / tool list / state / instructions appendix.
+    Tool schemas still flow through `tools=` on model.complete()."""
+    from barebear import Policy
+    fake = FakeModel(mode="auto", final_text="Done.")
+    bear = Bear(model=fake, tools=[], policy=Policy(max_steps=3))
+    task = Task(goal="g", system_prompt="You are X.")
+    bear.run(task)
+    system_msg = bear._messages[0]["content"]
+    assert system_msg == "You are X."
+
+
+def test_plan_respects_custom_system_prompt():
+    """bear.plan() must also respect Task.system_prompt — Lesson 8 relies on
+    it to prove different prompts produce different plans."""
+    captured: list[list[dict]] = []
+
+    class CapturingFake(FakeModel):
+        def complete(self, messages, tools=None):
+            captured.append(messages)
+            return super().complete(messages, tools)
+
+    fake = CapturingFake(responses=[
+        ModelResponse(content="A plan.", prompt_tokens=10, completion_tokens=5),
+    ])
+    bear = Bear(model=fake, tools=[])
+    bear.plan(Task(goal="g", system_prompt="You are a helpful planner."))
+    assert captured, "plan() should have called the model"
+    sent_system = captured[0][0]
+    assert sent_system["role"] == "system"
+    assert sent_system["content"] == "You are a helpful planner."
+
+
 def test_no_system_prompt_uses_default_persona():
     fake = FakeModel(mode="auto", final_text="Done.")
     bear = Bear(model=fake, tools=[])

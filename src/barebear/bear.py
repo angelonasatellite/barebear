@@ -460,21 +460,22 @@ class Bear:
             return str(result)
 
     def _build_system_prompt(self, task: Task) -> str:
-        # A custom system_prompt on Task replaces the agent persona and goal
-        # block. Policy, tool list, state, and instructions are always appended
-        # so the model still has the operational context it needs.
+        # When task.system_prompt is set, it fully replaces the system message
+        # — no framework appendix. Tool schemas still reach the model via the
+        # `tools=` parameter on `model.complete()`, so tool calling still works.
+        # The user owns the persona and is responsible for any extra context.
         if task.system_prompt:
-            parts = [task.system_prompt]
-        else:
-            parts = [
-                "You are a BareBear agent. You accomplish tasks by reasoning step-by-step "
-                "and using available tools when needed.",
-                "",
-                "## Your Task",
-                f"Goal: {task.goal}",
-            ]
-            if task.context:
-                parts.append(f"Context: {task.context}")
+            return task.system_prompt
+
+        parts = [
+            "You are a BareBear agent. You accomplish tasks by reasoning step-by-step "
+            "and using available tools when needed.",
+            "",
+            "## Your Task",
+            f"Goal: {task.goal}",
+        ]
+        if task.context:
+            parts.append(f"Context: {task.context}")
 
         parts.append("")
         parts.append(self.policy.to_prompt_text())
