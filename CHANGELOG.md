@@ -2,6 +2,58 @@
 
 All notable changes to BareBear will be documented in this file.
 
+## 0.3.0 (2026-04-29)
+
+A teacher-experience release. The framework is unchanged; everything
+around it is.
+
+### Added
+
+- **`barebear preflight` CLI** — verifies Python version, package
+  install, OpenRouter key presence and format, and (optionally) live
+  model reachability. New `[project.scripts]` entry installs `barebear`
+  on the user's PATH. `--skip-network` runs offline. 11 new tests, 118
+  passing total.
+- **Lesson 13 — capstone project pack** at `lessons/13-capstone/` with
+  a project brief (5 starter ideas, requirements, suggested timeline)
+  and a 100-point marking rubric across six aspects.
+- **Per-lesson Pace and Homework sections** on every lesson 02–12.
+  Each lesson.md now has a one-line time estimate and a concrete
+  between-lessons exercise — homework prompts require students to
+  actually run barebear (build agents, capture reports, write Policy
+  instantiations), not paper-only reflection.
+- **Lesson 1 ends with a "preview through barebear" pair of cells.**
+  After the raw OpenAI-SDK call that introduces the LLM, students see
+  the same call routed through `OpenRouterModel().complete(...)` —
+  closing the loop between *"what is an LLM"* and *"barebear is that
+  call plus a loop"*.
+- **`docs/teaching/spec-mapping.md`** — maps every lesson onto AQA
+  A-level, OCR A-level, OCR GCSE, AP CSP, AP CS A, and IB CS specs.
+- **`docs/teaching/teacher-quickstart.md`** — onboarding for CS
+  teachers who haven't installed a Python framework before. Browser-
+  only path, plain English, no terminal required.
+- **`docs/teaching/student-misconceptions.md`** — plain-English
+  re-framings of the ten questions students will actually ask
+  ("Is the AI thinking?", "Why different answers each time?", etc.)
+  with one-liners for use in class.
+- **`docs/teaching/it-brief.md`** — one-page summary teachers can
+  email to their school IT department. Endpoints, data flows, licence,
+  cost, plus a copy-paste email template.
+
+### Changed
+
+- **`lessons/README.md`** updated: capstone added to the syllabus,
+  teacher-supporting docs surfaced explicitly.
+- **Main README** updated: teacher resources block now lists every
+  supporting document, and mentions the `barebear preflight` command.
+
+### Notes
+
+- No breaking changes; the framework public API is identical to 0.2.2.
+- The new CLI surface justifies a minor bump (0.2.x → 0.3.0) under
+  semver: it's additive, but it's a new public entry point installed
+  on the user's PATH.
+
 ## 0.2.2 (2026-04-29)
 
 Two small refinements driven by feedback after the 0.2.1 launch.

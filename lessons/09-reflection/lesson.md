@@ -5,6 +5,8 @@
 > - Use `Reflect` to critique and revise an agent's output.
 > - Recognise when reflection helps — and when it just doubles your token bill.
 
+**Pace:** about 50 minutes. The recursive-reflection experiment is best done in pairs — students compare results.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/09-reflection/lesson.ipynb)
 
 ## The big idea
@@ -51,6 +53,10 @@ print(result.revised)
    It's about 80 lines. What's the prompt that asks for the critique?
 2. Make reflection iterative — critique, revise, critique again, revise
    again. Does the answer keep improving, or plateau? After how many rounds?
+
+## Homework
+
+Reflect on a piece of your *own* writing using the same agent. Pick a paragraph from a recent essay or report, run `Reflect.run` on it. Was the critique useful? Where did it go wrong?
 
 ## What's next
 

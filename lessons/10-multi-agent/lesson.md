@@ -5,6 +5,8 @@
 > - Recognise the trade-off: clarity of separation vs cost of extra LLM calls.
 > - Implement a research-then-write pipeline with two agents.
 
+**Pace:** about 70 minutes. Heavier — especially if you trace both bears. Consider splitting into two periods.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/10-multi-agent/lesson.ipynb)
 
 ## The big idea
@@ -69,6 +71,10 @@ Each agent has clear responsibility. Each is testable in isolation.
    extra steps.)
 2. Trace both bears with `trace=True`. How many total LLM calls did it
    take? Compare to a single-agent version of the same task.
+
+## Homework
+
+Add a third agent (a reviewer) to the pipeline that takes the writer's output and runs `Reflect.run` on it. How many total LLM calls does the three-agent system make for one task?
 
 ## What's next
 

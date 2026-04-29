@@ -5,6 +5,8 @@
 > - Reconstruct full state from a stored checkpoint.
 > - Decide when human-in-the-loop is the right pattern (and when it isn't).
 
+**Pace:** about 70 minutes — this is one of the heavier lessons. Suggest splitting: 40 min concept + run, 30 min approval/rejection scenarios.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/07-checkpoints/lesson.ipynb)
 
 ## The big idea
@@ -62,6 +64,10 @@ if report.status == "paused":
 1. Run with `approved=False`. What does the report look like?
 2. Serialise the checkpoint to JSON between pause and resume. Confirm you
    can reconstruct the exact same run state from disk.
+
+## Homework
+
+Modify the email-reply agent so that after the human approves, the report includes a step labelled `human_approval` with the approver's name. Hint: read `bear.resume()`.
 
 ## What's next
 

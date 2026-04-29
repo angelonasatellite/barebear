@@ -5,6 +5,8 @@
 > - Trace the four moves of every loop turn: perceive, think, act, observe.
 > - Run your first BareBear agent end-to-end.
 
+**Pace:** about 50 minutes including the exercise. Or split: 30 min concept + 20 min lab.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/02-the-agent-loop/lesson.ipynb)
 
 ## The big idea
@@ -64,6 +66,10 @@ That is the agent loop. Two turns: one to call the tool, one to respond.
 2. Read the source: open [`src/barebear/bear.py`](../../src/barebear/bear.py),
    find the `_run_loop` method. It's about 30 lines. Trace the four moves
    directly in the code.
+
+## Homework
+
+Before next lesson, run your agent with three different system prompts (helpful tutor, no-emoji answers only, explicit reasoning). Note one sentence on how each prompt changed the *behaviour* of the agent, not just the words it produced.
 
 ## What's next
 

@@ -6,6 +6,8 @@
 > - Persist information across multiple `bear.run()` calls.
 > - Snapshot and inspect state at any point.
 
+**Pace:** about 50 minutes. Snapshot/diff exploration is naturally a homework activity rather than a class one.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/04-state-and-memory/lesson.ipynb)
 
 ## The big idea
@@ -62,6 +64,10 @@ run.
 1. Add a `delete_note(index: int)` tool. Verify the agent uses it correctly.
 2. Use `state.snapshot()` between two runs and `state.diff(...)` to see what
    changed. (Read [`src/barebear/state.py`](../../src/barebear/state.py) — it's 60 lines.)
+
+## Homework
+
+Extend the note-taker so that calling `add_note('clear all')` wipes the notes list. Is that a *good* tool design? Why or why not? Write one paragraph.
 
 ## What's next
 

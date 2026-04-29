@@ -5,6 +5,8 @@
 > - Predict which tool the model will pick for a given request.
 > - Write a tool description that a model can use successfully.
 
+**Pace:** about 60 minutes. The schema-printing step alone is worth 10 minutes of class discussion — let students predict what the schema will contain before you reveal it.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/03-tool-design/lesson.ipynb)
 
 ## The big idea
@@ -44,6 +46,36 @@ pick the right tool every time.
 2. Look at the JSON schema BareBear generates for one of your tools:
    `print(my_tool.to_openai_schema())`. Where do the parameter types come
    from? (Hint: type annotations.)
+
+## Homework
+
+Take the three-tool agent from this lesson (`search_web`, `search_docs`,
+`search_database`). **Run it three times** with the same task —
+*"Find the API spec for the /users endpoint"* — but each time, swap one
+tool's description for one of these three styles:
+
+1. **Cryptic:** *"Look stuff up."*
+2. **Verbose:** four full sentences explaining when to use it, what it
+   returns, what its limits are, and an example query.
+3. **Goldilocks:** the description you originally wrote.
+
+For each run, capture which tool the agent picked. Bring the three
+runs (and the descriptions) to the next lesson — we'll discuss which
+description style won and why.
+
+```python
+# Sketch:
+my_descriptions = {"cryptic": "Look stuff up.", "verbose": "...", "goldilocks": "..."}
+for label, desc in my_descriptions.items():
+    tools = [
+        Tool(name="search_docs", fn=search_docs, description=desc),
+        # ... the other two unchanged ...
+    ]
+    bear = Bear(model=OpenRouterModel(), tools=tools)
+    report = bear.run(Task(goal="Find the API spec for the /users endpoint."))
+    picked = [s["tool_name"] for s in report.steps if s["type"] == "tool_call"]
+    print(f"{label}: {picked}")
+```
 
 ## What's next
 

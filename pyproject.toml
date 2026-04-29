@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "barebear"
-version = "0.2.2"
+version = "0.3.0"
 description = "The free agentic AI course. 12 lessons, 12 concepts, real models. Read the framework — it's the textbook."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -52,6 +52,9 @@ dev = [
     "ruff>=0.4",
     "openai>=1.0",
 ]
+
+[project.scripts]
+barebear = "barebear.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/richey-malhotra/barebear"

@@ -5,6 +5,8 @@
 > - Use `bear.plan()` to inspect the model's intent before it acts.
 > - Decide which strategy fits which task.
 
+**Pace:** about 50 minutes. Have students paste their plan into a discussion thread before they execute — it makes the plan/execute trade-off concrete.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/08-planning/lesson.ipynb)
 
 ## The big idea
@@ -52,6 +54,10 @@ if input("Execute? [y/N] ") == "y":
    plans differ? Why?
 2. Compare token cost: `bear.plan()` vs `bear.run()` for the same task.
    Which is cheaper, and by how much?
+
+## Homework
+
+For one chosen task, run `bear.plan()` *three* times with the same goal. Are the three plans the same? If not, what does that tell you about plan-then-execute?
 
 ## What's next
 

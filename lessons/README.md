@@ -1,4 +1,4 @@
-# 🐻 The BareBear Course
+# The BareBear Course
 
 **12 lessons. 12 concepts. Real models. No magic. Read the framework — it's the textbook.**
 
@@ -39,23 +39,39 @@ parallel `lesson.py` script for lessons 7–12 is in the same folder.
 | [**10**][l10] | Multi-agent         | A Bear that hires another Bear. Multi-agent in under 40 lines.          |
 | [**11**][l11] | Evaluation          | Read a `Report`. Write tests for an agent.                              |
 | [**12**][l12] | Honest uncertainty  | Make the agent flag what it does not know.                              |
+| [**13**][l13] | Capstone project    | Design and build your own agent. Rubric + 5 starter ideas.              |
 
-[l01]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/01-first-llm-call/lesson.ipynb
-[l02]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/02-the-agent-loop/lesson.ipynb
-[l03]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/03-tool-design/lesson.ipynb
-[l04]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/04-state-and-memory/lesson.ipynb
-[l05]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/05-budgets/lesson.ipynb
-[l06]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/06-policy-and-guardrails/lesson.ipynb
-[l07]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/07-checkpoints/lesson.ipynb
-[l08]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/08-planning/lesson.ipynb
-[l09]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/09-reflection/lesson.ipynb
-[l10]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/10-multi-agent/lesson.ipynb
-[l11]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/11-evaluation/lesson.ipynb
-[l12]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/12-honest-uncertainty/lesson.ipynb
+[l01]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/01-first-llm-call/lesson.ipynb
+[l02]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/02-the-agent-loop/lesson.ipynb
+[l03]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/03-tool-design/lesson.ipynb
+[l04]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/04-state-and-memory/lesson.ipynb
+[l05]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/05-budgets/lesson.ipynb
+[l06]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/06-policy-and-guardrails/lesson.ipynb
+[l07]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/07-checkpoints/lesson.ipynb
+[l08]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/08-planning/lesson.ipynb
+[l09]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/09-reflection/lesson.ipynb
+[l10]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/10-multi-agent/lesson.ipynb
+[l11]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/11-evaluation/lesson.ipynb
+[l12]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.3.0/lessons/12-honest-uncertainty/lesson.ipynb
+[l13]: ./13-capstone/lesson.md
 
-All 12 lessons ship as Jupyter notebooks. Lessons 7–12 also ship as plain
+Lessons 1–12 ship as Jupyter notebooks. Lessons 7–12 also ship as plain
 Python scripts (`lesson.py` next to each `lesson.ipynb`) so students can
-compare notebook prototyping with production-style code.
+compare notebook prototyping with production-style code. Lesson 13 is a
+capstone project (a brief plus a marking rubric — no notebook).
+
+For teachers, see also:
+
+- [`teacher-quickstart.md`](../docs/teaching/teacher-quickstart.md) —
+  start here if you haven't installed Python before.
+- [`spec-mapping.md`](../docs/teaching/spec-mapping.md) — how each
+  lesson maps to AQA, OCR, AP CSP, AP CS A, and IB Computer Science.
+- [`student-misconceptions.md`](../docs/teaching/student-misconceptions.md)
+  — answers to the questions students will actually ask.
+- [`it-brief.md`](../docs/teaching/it-brief.md) — one-pager to email
+  your school's IT department for whitelisting.
+- [`instructor-guide.md`](../docs/teaching/instructor-guide.md) —
+  pacing, pitfalls, suggested assessments, curriculum subsets.
 
 ## How to use this course
 

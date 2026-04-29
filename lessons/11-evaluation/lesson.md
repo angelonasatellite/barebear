@@ -5,6 +5,8 @@
 > - Write tests for an agent — both behavioural and policy-level.
 > - Build a small eval harness for comparing two prompt strategies.
 
+**Pace:** about 60 minutes. Live test-writing on the projector lands the lesson best — bring the email-reply agent up and write the assertions in front of the class.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/11-evaluation/lesson.ipynb)
 
 ## The big idea
@@ -57,6 +59,10 @@ text the model happened to produce that day.
    Find a sensible X by running it three times first.
 2. Two prompts, one task: which costs less, and which is faster? Build a
    tiny eval harness that runs both five times and reports averages.
+
+## Homework
+
+Pick an agent from a previous lesson. Write *two* behavioural tests for it: one that asserts the order of tool calls, one that asserts a budget constraint. Run them. Did either fail unexpectedly?
 
 ## What's next
 

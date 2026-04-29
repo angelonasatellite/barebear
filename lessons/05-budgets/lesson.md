@@ -5,6 +5,8 @@
 > - Set step, tool-call, token, and cost limits via `Policy`.
 > - Read a `Report` to see what the budget actually consumed.
 
+**Pace:** about 45 minutes. The runaway-loop demo is the centrepiece — leave plenty of class time for students to *predict* what will happen before they run it.
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/05-budgets/lesson.ipynb)
 
 ## The big idea
@@ -53,6 +55,10 @@ With budgets in place, the run stops cleanly at step 4.
 1. Comment out the `Policy` argument. What happens? (Don't leave it running.)
 2. Add `max_tool_calls=2` while leaving `max_steps=4`. Predict which limit
    trips first. Run it and check.
+
+## Homework
+
+Set `max_steps=2` on a multi-tool agent and then ask it to do something that genuinely needs three steps. Predict before running: what status will the report have? What will `final_output` look like? Then run it and compare.
 
 ## What's next
 

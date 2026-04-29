@@ -6,6 +6,8 @@
 > - Make an agent flag what it doesn't know.
 > - Read uncertainty out of a `Report` and use it in downstream code.
 
+**Pace:** about 50 minutes. Save the last 10 minutes for whole-class discussion: where else in life is admitting 'I don't know' more valuable than guessing?
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/12-honest-uncertainty/lesson.ipynb)
 
 ## The big idea
@@ -63,6 +65,10 @@ in `assumptions` and `uncertainties`. Production code branches on those.
 2. Write a system prompt that explicitly instructs the model to flag any
    assumption it has to make. Compare uncertainties extracted with and
    without your prompt.
+
+## Homework
+
+Compare two runs of the same uncertainty-aware agent: one with the explicit 'flag your assumptions' system prompt, one without. Which produced more `assumptions` entries in the report? Was the model lying *less* in either run, or just being more honest about lying?
 
 ## You're done
 

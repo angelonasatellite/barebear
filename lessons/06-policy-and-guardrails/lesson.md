@@ -5,6 +5,8 @@
 > - Block a dangerous tool, or require human approval before it runs.
 > - Distinguish framework-level safety from prompt-level safety.
 
+**Pace:** about 60 minutes. Pair this lesson with a 5-minute discussion of one real-world automation incident (autonomous customer-service email sends, runaway purchase agents).
+
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/06-policy-and-guardrails/lesson.ipynb)
 
 ## The big idea
@@ -54,6 +56,36 @@ print(report.summary())
    pauses with `status="paused"`. (Lesson 7 covers what to do then.)
 2. Add a tool with `side_effects="external"`. Set `allow_external_side_effects=False`
    in the policy. Verify the tool is blocked.
+
+## Homework
+
+**Build** the agent that drafts but never sends messages to your
+school's parents-evening email list. Don't just describe the policy on
+paper — write the actual `Policy(...)` instantiation in code, run it,
+and capture the report showing the constraint firing.
+
+Submit:
+
+1. Your `Policy(...)` instantiation, with at least three deliberately
+   chosen constraints.
+2. The agent code (a `draft_email` tool that's allowed, a `send_email`
+   tool that should be blocked).
+3. The `report.summary()` output showing the policy block step.
+4. One paragraph explaining *why* you chose each of those three
+   constraints, not just what they are.
+
+```python
+# Sketch:
+policy = Policy(
+    require_approval_for=["send_email"],
+    allow_external_side_effects=False,
+    max_steps=...,   # you decide
+    max_cost_usd=...,
+)
+bear = Bear(model=OpenRouterModel(), tools=[draft_email, send_email], policy=policy)
+report = bear.run(Task(goal="Draft and send a parents-evening reminder to the Year-12 list."))
+print(report.summary())
+```
 
 ## What's next
 
