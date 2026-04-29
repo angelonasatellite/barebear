@@ -112,6 +112,6 @@ notebook and forget about it.
 ## Licence and use in teaching
 
 MIT. Use it in your classroom, edit the notebooks, fork the curriculum, ship
-your own variant. If you do, [open an issue](https://github.com/richey-malhotra/barebear/issues)
-or [star the repo](https://github.com/richey-malhotra/barebear) so others can
-find it. If you teach a course with this, we'd love to hear about it.
+your own variant. If you do, [add your story to the pinned Teaching thread](https://github.com/richey-malhotra/barebear/issues/1)
+or [star the repo](https://github.com/richey-malhotra/barebear) so other
+teachers can find it.

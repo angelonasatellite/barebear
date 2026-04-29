@@ -109,6 +109,6 @@ If you teach a course or club with BareBear:
 
 - [Star the repo](https://github.com/richey-malhotra/barebear) so other
   teachers can find it.
-- [Open an issue](https://github.com/richey-malhotra/barebear/issues) with
-  the tag `taught-with`. We'd love to know what worked, what didn't, and
-  what you wish was different.
+- Add a comment on the pinned [Teaching with barebear](https://github.com/richey-malhotra/barebear/issues/1)
+  thread. We'd love to know what worked, what didn't, and what you wish
+  was different — short or long, all welcome.

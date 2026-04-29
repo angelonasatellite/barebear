@@ -24,7 +24,7 @@
 
 **For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
 
-**For teachers** — [**See the syllabus**](lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment.
+**For teachers** — [**See the syllabus**](lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment. If you teach a course or club with this, [add your classroom story to issue #1](https://github.com/richey-malhotra/barebear/issues/1) — comment in the pinned thread so other teachers can find it.
 
 **For engineers** — [**Read the framework**](src/barebear/). The whole thing is ~1,500 lines of Python. No magic, no DSLs, no metaprogramming. Open it.
 
@@ -344,8 +344,8 @@ to tell us:
 
 - [Star the repo](https://github.com/richey-malhotra/barebear) so other
   teachers can find it.
-- [Open an issue](https://github.com/richey-malhotra/barebear/issues) with
-  the tag `taught-with`.
+- Add a comment to the pinned [Teaching with barebear](https://github.com/richey-malhotra/barebear/issues/1)
+  thread.
 
 Lesson contributions are welcomed — see
 [CONTRIBUTING.md](CONTRIBUTING.md).
