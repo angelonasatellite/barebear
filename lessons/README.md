@@ -40,18 +40,18 @@ parallel `lesson.py` script for lessons 7–12 is in the same folder.
 | [**11**][l11] | Evaluation          | Read a `Report`. Write tests for an agent.                              |
 | [**12**][l12] | Honest uncertainty  | Make the agent flag what it does not know.                              |
 
-[l01]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/01-first-llm-call/lesson.ipynb
-[l02]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/02-the-agent-loop/lesson.ipynb
-[l03]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/03-tool-design/lesson.ipynb
-[l04]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/04-state-and-memory/lesson.ipynb
-[l05]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/05-budgets/lesson.ipynb
-[l06]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/06-policy-and-guardrails/lesson.ipynb
-[l07]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/07-checkpoints/lesson.ipynb
-[l08]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/08-planning/lesson.ipynb
-[l09]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/09-reflection/lesson.ipynb
-[l10]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/10-multi-agent/lesson.ipynb
-[l11]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/11-evaluation/lesson.ipynb
-[l12]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/12-honest-uncertainty/lesson.ipynb
+[l01]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/01-first-llm-call/lesson.ipynb
+[l02]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/02-the-agent-loop/lesson.ipynb
+[l03]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/03-tool-design/lesson.ipynb
+[l04]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/04-state-and-memory/lesson.ipynb
+[l05]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/05-budgets/lesson.ipynb
+[l06]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/06-policy-and-guardrails/lesson.ipynb
+[l07]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/07-checkpoints/lesson.ipynb
+[l08]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/08-planning/lesson.ipynb
+[l09]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/09-reflection/lesson.ipynb
+[l10]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/10-multi-agent/lesson.ipynb
+[l11]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/11-evaluation/lesson.ipynb
+[l12]: https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/12-honest-uncertainty/lesson.ipynb
 
 All 12 lessons ship as Jupyter notebooks. Lessons 7–12 also ship as plain
 Python scripts (`lesson.py` next to each `lesson.ipynb`) so students can

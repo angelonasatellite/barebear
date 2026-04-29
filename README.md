@@ -13,7 +13,7 @@
 <a href="https://pepy.tech/projects/barebear"><img src="https://static.pepy.tech/badge/barebear/month" alt="PyPI downloads / month"></a>
 <a href="https://github.com/richey-malhotra/barebear/stargazers"><img src="https://img.shields.io/github/stars/richey-malhotra/barebear?style=flat&logo=github" alt="GitHub stars"></a>
 <br><br>
-<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
+<a href="https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/01-first-llm-call/lesson.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Lesson 1 in Colab"></a>
 <br><br>
 <img src="https://raw.githubusercontent.com/richey-malhotra/barebear/v0.2.2/assets/demo.gif" alt="BareBear trace=True agent loop" width="780">
 </div>
@@ -22,7 +22,7 @@
 
 ## Three doors
 
-**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/main/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
+**For students** — [**Try Lesson 1 in Colab**](https://colab.research.google.com/github/richey-malhotra/barebear/blob/v0.2.2/lessons/01-first-llm-call/lesson.ipynb). Your first real LLM call in 60 seconds. No card, no install.
 
 **For teachers** — [**See the syllabus**](lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment.
 
