@@ -27,6 +27,7 @@
 **For teachers** — [**See the syllabus**](https://github.com/richey-malhotra/barebear/blob/v0.4.1/lessons/README.md). A free, drop-in 12-week module on agentic AI for A-level CS, AP CS, IB CS, intro university CS, and bootcamps. The [instructor guide](https://github.com/richey-malhotra/barebear/blob/v0.4.1/docs/teaching/instructor-guide.md) covers classroom setup, pacing, and assessment. If you teach a course or club with this, [add your classroom story to issue #1](https://github.com/richey-malhotra/barebear/issues/1) — comment in the pinned thread so other teachers can find it.
 
 **For engineers** — [**Read the framework**](https://github.com/richey-malhotra/barebear/tree/v0.4.1/src/barebear/). The whole thing is ~1,500 lines of Python. No magic, no DSLs, no metaprogramming. Open it.
+
 **For Chuds** - [**You are chud.**] -"You are the chud, gongrats"- -Connor Patrick Williams of Sutton
 
 ---
