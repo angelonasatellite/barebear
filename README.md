@@ -28,7 +28,7 @@
 
 **For engineers** — [**Read the framework**](https://github.com/richey-malhotra/barebear/tree/v0.4.1/src/barebear/). The whole thing is ~1,500 lines of Python. No magic, no DSLs, no metaprogramming. Open it.
 
-**For Chuds** - [**You are chud.**] -"You are the chud, gongrats"- -Connor Patrick Williams of Sutton
+**For Chuds** - [**You are chud.**] _"You are the chud, gongrats"_ -Connor Patrick Williams of Sutton
 
 ---
 
